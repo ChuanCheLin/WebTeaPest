@@ -1,0 +1,14 @@
+username 您好:
+
+本信件為茶葉病蟲害辨識系統每周報告，由系統自動發出。
+
+以下連結為本周(week)所收到之使用者誤判回報及目前未處理之回報，
+
+本周回報列表:
+http://140.112.183.138:1007/admin/imgUp/feedback/?date__gte=begin&date__lt=settle
+
+未處理之回報列表:
+http://140.112.183.138:1007/admin/imgUp/feedback/?finishCheck__exact=0
+
+謝謝您~
+

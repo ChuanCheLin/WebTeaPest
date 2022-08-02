@@ -1,0 +1,6 @@
+0006.jpg
+
+ALTER TABLE imgUp_img CONVERT TO CHARACTER SET utf8;
+ALTER TABLE imgUp_feedback CONVERT TO CHARACTER SET utf8;
+ALTER TABLE imgUp_feedback MODIFY review longtext CHARACTER SET utf8;
+show create table;

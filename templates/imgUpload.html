@@ -1,0 +1,84 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+
+<div class="container">
+            
+    <h2 class="text-center text-white font-weight-bold">上傳或紀錄查詢</h2>
+    <h4 class="text-center text-white font-weight-light xdd">Image Uploading or Record Lookup</h4>
+
+    <hr class="divider" />
+
+    <p class="text-danger text-center font-weight-bold mb-2">
+        {{ error_message }}
+    </p>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-6 text-center mb-5">
+            <i class="fas fa-4x fa-file-upload text-primary mb-2"></i>
+            <h3 class="h4  text-step mb-2 mt-0">上傳影像</h3>
+            <h6 class="text-subtitle mb-0">Upload an Image</h6>
+            <form action="{% url 'upload' %}" method="post" class="md-form" 
+                enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <label for="file-upload" class="btn btn-upload mt-3">
+                    選擇檔案 Select File
+                </label>
+                <input id="file-upload"  type="file"  style="display:none" name="img">
+                <!-- upload modal -->
+                    <div class="modal fade" id="uploadModal" role="dialog">
+                        <div class="modal-dialog ">
+                            <div class="modal-content">
+                                    
+                                    {% include 'regionform.html' %}
+                                
+                            </div>
+                        </div>
+                    </div>
+            </form>   
+        </div>
+
+        <div class="col-lg-6 col-md-6 text-center mb-5">
+            <i class="fas fa-4x fa-search text-primary mb-2"></i>
+            <h3 class="h4 text-step  mb-2 mt-0">查詢過往判別影像(使用影像ID)</h3>
+            <h6 class="text-subtitle mb-0">
+                Look up an Identified Record (Using Image ID)</h6>
+            <form class="form-inline justify-content-center mt-3" action="{% url 'get_history' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group ">
+                    <label for="imgid"></label>
+                    <input type="text" class="form-control" id="imgid" placeholder="Enter image ID" name="imgid">
+                </div>
+            <button type="submit" class="btn btn-primary mx-2">查詢 Inquire</button>
+            </form>
+        </div>
+
+    </div>
+    <div class="toast toast-upload" id="myToast" >
+        <div class="toast-body ">
+            <div> 
+                已選擇檔案! <br> 
+                Please click "Start Identification".</div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $("#file-upload").change(function(){
+
+            // console.log('AAAAAAAAAAAAA')
+
+            $("#myToast").toast({ delay: 2000 });
+            $("#myToast").toast('show');
+            $("#uploadModal").modal('toggle');
+        }); 
+    });
+</script>
+
+<script>
+    
+</script>

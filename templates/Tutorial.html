@@ -1,0 +1,68 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+    <div class="container-fluid">
+        <h2 class="text-center text-white font-weight-bold mt-1">辨識流程與服務說明</h2>
+        <h4 class="text-center text-white font-weight-light mb-0">
+            Identification Process / Service Description</h4>
+        <hr class="divider my-2" />
+        <div class="row">
+            <div class="col-lg-3 col-md-6 text-center py-5">
+                <div class="mt-3">
+                    <a class="portfolio-box" href="{% static 'assets/img/portfolio/fullsize/01.jpg' %}">
+                        <i class="fas fa-4x fa-camera-retro text-primary mb-4"></i>
+                        <div class="portfolio-box-caption">
+                            <img class="img-fluid" src="{% static 'assets/img/portfolio/thumbnails/01.jpg' %}" alt="" />
+                        </div>
+                        <h3 class="h4 text-step">影像上傳</h3>
+                        <h6 class="h6 mb-2 text-subtitle">Image Uploading</h6>
+
+                        <p class="text-muted mb-0">使用手機拍照或透過電腦上傳田間病蟲害影像</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 text-center py-5">
+                <div class="mt-3">
+                    <a class="portfolio-box" href="{% static 'assets/img/portfolio/fullsize/02.jpg' %}">
+                        <i class="fas fa-4x fa-poll-h text-primary mb-4"></i>
+                        <div class="portfolio-box-caption">
+                            <img class="img-fluid" src="{% static 'assets/img/portfolio/thumbnails/02.jpg' %}" alt="" />
+                        </div>
+                        <h3 class="h4 mb-2 text-step">病蟲害預測</h3>
+                        <h6 class="h6 mb-2 text-subtitle">Disease/Pest Prediction</h6>
+                        <p class="text-muted mb-0">檢視病蟲害預測結果，模型會預測受病害葉片位置並辨識病蟲害種類</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 text-center py-5 ">
+                <div class="mt-3">
+                    <a class="portfolio-box" href="{% static 'assets/img/portfolio/fullsize/03.jpg' %}">
+                        <i class="fas fa-4x fa-comment-medical text-primary mb-4"></i>
+                        <div class="portfolio-box-caption">
+                            <img class="img-fluid" src="{% static 'assets/img/portfolio/thumbnails/03.jpg' %}" alt="" />
+                        </div>
+                        <h3 class="h4 mb-2 text-step">結果查看</h3>
+                        <h6 class="h6 mb-2 text-subtitle">Information for Identification</h6>
+                        <p class="text-muted mb-0">展開結果可以查看病蟲害簡介，並透過連結至植保系統查看建議用藥</p>
+                    </a>
+                    
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 text-center py-5">
+                <div class="mt-3">
+                    <a class="portfolio-box" href="{% static 'assets/img/portfolio/fullsize/04.jpg' %}">
+                        <i class="fas fa-4x fa-question-circle text-primary mb-4"></i>
+                        <div class="portfolio-box-caption ">
+                            <img class="img-fluid" src="{% static 'assets/img/portfolio/thumbnails/04.jpg' %}" alt="" />
+                        </div>
+                        <h3 class="h4 mb-2 text-step">誤判回報</h3>
+                        <h6 class="h6 mb-2 text-subtitle">Misclassification Report</h6>
+                        <p class="text-muted mb-0">
+                            如果對判斷結果有疑問，可進行誤判回報，
+                            該回報可以給專業人員處理結果並協助日後辨識模型的改進</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>

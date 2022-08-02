@@ -1,0 +1,95 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<div class="modal-header">
+    <p class="modal-title">Image Information</p>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<div class="modal-body">
+
+    <label class="text-left mx-1">請問本影像的拍攝地點與海拔?</h3>
+    <label class="text-left mx-1">Please let us know the region and altitude of  the tea field.</h6>
+       
+            <hr />
+            <div class="form-group text-left" 
+                data-cities-url="{% url 'ajax_load_cities' %}" id="RegionForm">
+                <label class="mx-1" for="county">縣市別 County:</label>
+                <select class="form-control mx-1" name="county" id="county">
+                    <option value="">---------</option>
+                    {% for county in counties %}
+                    <option value="{{ county.name }}">{{ county.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group text-left">
+                <label class="mx-1" for="city">鄉鎮市區 City:</label>
+                <select class="form-control mx-1" name="city" id="city">
+                    <option value="">---------</option>
+                    
+                </select>
+            </div>
+            <div class="form-group text-left">
+                <label class="mx-1" for="altitude">海拔高度 Altitude:</label>
+                <select class="form-control mx-1 ml-2" name="altitude" id="altitude">
+                    <option>---m ~ ---m</option>
+                    <option>0m ~ 500m</option>
+                    <option>500m ~ 1000m</option>
+                    <option>1500m ~ 2000m</option>
+                    <option>2000m ~ </option>
+                </select>
+            </div>
+            <hr />
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="nope" name="nope" onclick="unknowRegion()" id="noRegion">
+                <label class="form-check-label mx-1" for="noRegion">
+                不確定拍攝地點 Location Unknown
+                </label>
+            </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-large" data-dismiss="modal">Cancel</button>
+        <input class="btn btn-upload" id="upLoad" type="submit" value="進行辨識 Start an Identification">
+    </div>
+        
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $("select#county").change(function () {
+            var url = $("#RegionForm").attr("data-cities-url");  // get the url of the `load_cities` view
+            var countyId = $(this).val();  // get the selected county ID from the HTML input
+            // console.log(url+'?county='+countyId);
+            $.ajax({      // initialize an AJAX request
+            type: "GET",                 
+            url: url,     // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'county': countyId       // add the county id to the GET parameters
+            },
+            dataType: 'json',
+            success: function (result) {
+                    $("#city option").remove();
+                    $("#city").append('<option>---------</option>');
+                    for (var i = result.length - 1; i >= 0; i--) {
+                        $("#city").append('<option>'+ result[i].name +'</option>');
+                    };
+                }
+            })
+        
+        });
+
+    function unknowRegion() {
+        if ($("#noRegion").is(":checked")) {
+            $('#city').prop('disabled', 'disabled');
+            $('#county').prop('disabled', 'disabled');
+            $('#altitude').prop('disabled', 'disabled');
+        }
+        else {
+            $('#county').prop('disabled', false);
+            $('#city').prop('disabled', false);
+            $('#altitude').prop('disabled', false);
+        }
+
+
+    }
+
+    </script>

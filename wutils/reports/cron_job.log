@@ -1,0 +1,705 @@
+search date from 2021-02-13 to 2021-02-20
+Images uploaded this week:  65
+created new report file:  /home/ssl/WebTeaPest/wutils/reports/UploadRecord.csv
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-02-13 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-02-20 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+Failed to complete cronjob at ('*/5 * * * *', 'TeaData.views.weeklyreport', '>> /home/ssl/WebTeaPest/wutils/reports/cron_job.log 2>&1')
+Traceback (most recent call last):
+  File "/home/ssl/.local/lib/python3.8/site-packages/django_crontab/crontab.py", line 145, in run_job
+    func(*job_args, **job_kwargs)
+  File "/home/ssl/WebTeaPest/TeaData/views.py", line 5, in weeklyreport
+    main()
+  File "/home/ssl/WebTeaPest/wutils/weeklyreport.py", line 181, in main
+    text = mailform(user, week, coller.begin, coller.end)
+  File "/home/ssl/WebTeaPest/wutils/mail.py", line 27, in mailform
+    with open('wutils/mailsample.txt', 'r') as t:
+FileNotFoundError: [Errno 2] No such file or directory: 'wutils/mailsample.txt'
+search date from 2021-02-13 to 2021-02-20
+Images uploaded this week:  65
+Found existing record file.
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-02-13 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-02-20 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-02-13 to 2021-02-20
+Images uploaded this week:  65
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-02-15 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-02-22 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-02-15 to 2021-02-22
+Images uploaded this week:  62
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-02-22 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-03-01 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-02-22 to 2021-03-01
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-03-01 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-03-08 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+Failed to complete cronjob at ('36 7 * * 1', 'TeaData.views.weeklyreport', '>> /home/ssl/WebTeaPest/wutils/reports/cron_job.log 2>&1')
+Traceback (most recent call last):
+  File "/home/ssl/.local/lib/python3.8/site-packages/django_crontab/crontab.py", line 145, in run_job
+    func(*job_args, **job_kwargs)
+  File "/home/ssl/WebTeaPest/TeaData/views.py", line 5, in weeklyreport
+    main()
+  File "/home/ssl/WebTeaPest/wutils/weeklyreport.py", line 183, in main
+    sendAttachEmail(subject, text, mailTo, attach)
+  File "/home/ssl/WebTeaPest/wutils/mail.py", line 47, in sendAttachEmail
+    msg.send()
+  File "/usr/local/lib/python3.8/dist-packages/django/core/mail/message.py", line 276, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/usr/local/lib/python3.8/dist-packages/django/core/mail/backends/smtp.py", line 102, in send_messages
+    new_conn_created = self.open()
+  File "/usr/local/lib/python3.8/dist-packages/django/core/mail/backends/smtp.py", line 62, in open
+    self.connection = self.connection_class(self.host, self.port, **connection_params)
+  File "/usr/lib/python3.8/smtplib.py", line 253, in __init__
+    (code, msg) = self.connect(host, port)
+  File "/usr/lib/python3.8/smtplib.py", line 339, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+  File "/usr/lib/python3.8/smtplib.py", line 308, in _get_socket
+    return socket.create_connection((host, port), timeout,
+  File "/usr/lib/python3.8/socket.py", line 787, in create_connection
+    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+  File "/usr/lib/python3.8/socket.py", line 918, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+search date from 2021-03-01 to 2021-03-08
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-03-08 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-03-15 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-03-08 to 2021-03-15
+Images uploaded this week:  7
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-03-15 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-03-22 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-03-15 to 2021-03-22
+Images uploaded this week:  4
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-03-22 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-03-29 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-03-22 to 2021-03-29
+Images uploaded this week:  2
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-03-29 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-04-05 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-03-29 to 2021-04-05
+Images uploaded this week:  2
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-04-05 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-04-12 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-04-05 to 2021-04-12
+Images uploaded this week:  2
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-04-12 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-04-19 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-04-12 to 2021-04-19
+Images uploaded this week:  2
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-04-19 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-04-26 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+search date from 2021-04-19 to 2021-04-26
+Images uploaded this week:  1
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-04-26 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-05-03 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-04-26 to 2021-05-03
+Images uploaded this week:  3
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-05-03 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-05-10 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-05-03 to 2021-05-10
+Images uploaded this week:  1
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-05-10 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-05-17 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-05-10 to 2021-05-17
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-05-17 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-05-24 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-05-17 to 2021-05-24
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-05-24 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-05-31 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-05-24 to 2021-05-31
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-05-31 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-06-07 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+search date from 2021-05-31 to 2021-06-07
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-06-07 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-06-14 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+search date from 2021-06-07 to 2021-06-14
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-06-14 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-06-21 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+search date from 2021-06-14 to 2021-06-21
+Images uploaded this week:  4
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-06-21 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-06-28 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-06-21 to 2021-06-28
+Images uploaded this week:  5
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-06-28 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-07-05 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-06-28 to 2021-07-05
+Images uploaded this week:  1
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-07-05 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-07-12 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-07-05 to 2021-07-12
+Images uploaded this week:  7
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-07-12 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-07-19 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-07-12 to 2021-07-19
+Images uploaded this week:  7
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-07-19 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-07-26 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-07-19 to 2021-07-26
+Images uploaded this week:  8
+Found existing record file.
+['r07631006@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-07-26 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-08-02 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-07-26 to 2021-08-02
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-08-09 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-08-16 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-08-09 to 2021-08-16
+Images uploaded this week:  12
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-08-16 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-08-23 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-08-16 to 2021-08-23
+Images uploaded this week:  5
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-08-23 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-08-30 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-08-23 to 2021-08-30
+Images uploaded this week:  26
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-08-30 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-09-06 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-08-30 to 2021-09-06
+Images uploaded this week:  1
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-09-06 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-09-13 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-09-06 to 2021-09-13
+Images uploaded this week:  7
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-09-13 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-09-20 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-09-13 to 2021-09-20
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-09-20 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-09-27 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-09-20 to 2021-09-27
+Images uploaded this week:  8
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-09-27 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-10-04 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-09-27 to 2021-10-04
+Images uploaded this week:  1
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-10-04 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-10-11 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-10-04 to 2021-10-11
+Images uploaded this week:  8
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-10-11 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-10-18 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-10-11 to 2021-10-18
+Images uploaded this week:  1
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-10-18 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-10-25 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-10-18 to 2021-10-25
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-10-25 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-11-01 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-10-25 to 2021-11-01
+Images uploaded this week:  39
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-11-01 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-11-08 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-11-01 to 2021-11-08
+Images uploaded this week:  17
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-11-08 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-11-15 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-11-08 to 2021-11-15
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-11-15 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-11-22 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-11-15 to 2021-11-22
+Images uploaded this week:  24
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-11-22 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-11-29 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-11-22 to 2021-11-29
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-11-29 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-12-06 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-11-29 to 2021-12-06
+Images uploaded this week:  6
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-12-06 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-12-13 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-12-06 to 2021-12-13
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-12-13 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-12-20 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-12-13 to 2021-12-20
+Images uploaded this week:  3
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-12-20 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-12-27 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-12-20 to 2021-12-27
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2021-12-27 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-01-03 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2021-12-27 to 2022-01-03
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-01-03 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-01-10 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-01-03 to 2022-01-10
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-01-10 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-01-17 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-01-10 to 2022-01-17
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-01-17 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-01-24 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-01-17 to 2022-01-24
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-01-24 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-01-31 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-01-24 to 2022-01-31
+Images uploaded this week:  15
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-01-31 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-02-07 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-01-31 to 2022-02-07
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-02-07 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-02-14 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-02-07 to 2022-02-14
+Images uploaded this week:  7
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-02-14 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-02-21 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-02-14 to 2022-02-21
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-02-21 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-02-28 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-02-21 to 2022-02-28
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-02-28 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-03-07 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-02-28 to 2022-03-07
+Images uploaded this week:  2
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-03-07 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-03-14 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-03-07 to 2022-03-14
+Images uploaded this week:  10
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-03-14 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-03-21 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-03-14 to 2022-03-21
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-03-21 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-03-28 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-03-21 to 2022-03-28
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-03-28 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-04-04 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-03-28 to 2022-04-04
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-04-04 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-04-11 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-04-04 to 2022-04-11
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-04-11 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-04-18 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-04-11 to 2022-04-18
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-04-18 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-04-25 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-04-18 to 2022-04-25
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-04-25 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-05-02 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-04-25 to 2022-05-02
+Images uploaded this week:  1
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-05-02 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-05-09 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-05-02 to 2022-05-09
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-05-09 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-05-16 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-05-09 to 2022-05-16
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-05-16 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-05-23 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+search date from 2022-05-16 to 2022-05-23
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-05-23 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-05-30 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+search date from 2022-05-23 to 2022-05-30
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-05-30 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-06-06 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-05-30 to 2022-06-06
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-06-06 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-06-13 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-06-06 to 2022-06-13
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-06-13 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-06-20 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-06-13 to 2022-06-20
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-06-20 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-06-27 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-06-20 to 2022-06-27
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-06-27 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-07-04 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-06-27 to 2022-07-04
+Images uploaded this week:  2
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-07-04 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-07-11 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-07-04 to 2022-07-11
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-07-11 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-07-18 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-07-11 to 2022-07-18
+Images uploaded this week:  0
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-07-18 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+/usr/local/lib/python3.8/dist-packages/django/db/models/fields/__init__.py:1365: RuntimeWarning: DateTimeField Img.date received a naive datetime (2022-07-25 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+search date from 2022-07-18 to 2022-07-25
+Images uploaded this week:  1
+Found existing record file.
+['r07631006@ntu.edu.tw']
+['b07611004@ntu.edu.tw']

@@ -4,7 +4,7 @@ import sys
 import os
 import csv
 import shutil
-from cv2 import cv2
+import cv2
 import numpy as np
 from .models import Img, Detection
 from mmcv.image import imread, imwrite
@@ -56,42 +56,42 @@ def read_label_color(file, BGR=True):
 def pred_img(img_name):
 
     # print('import library')
+    from fsdet.data.detection_utils import read_image
+    from fsdet.config import get_cfg
+    from .predictor import VisualizationDemo
 
-    from mmdet.apis import init_detector, inference_detector
+    cfg = get_cfg()
+    cfg.merge_from_file('/home/eric/FSCE_tea-diseases/checkpoints/config.yaml')
+    cfg.MODEL.RETINANET.SCORE_THRESH_TEST = 0.5
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
+    cfg.freeze()
 
-    # print('load model')
-    TEADISEASE_DIR = settings.TEADISEASE_DIR
-    config_file = os.path.join(TEADISEASE_DIR, 'configs/_xm/webdemo.py')
-    #config_file = os.path.join(TEADISEASE_DIR, 'work_dirs/web/webdemo15class.py')
-    # download the checkpoint from model zoo and put it in `checkpoints/`
-    checkpoint_file = os.path.join(TEADISEASE_DIR, 'work_dirs/web/webdemo.pth')
-    #checkpoint_file = os.path.join(TEADISEASE_DIR, 'work_dirs/web/webdemo15class.pth')
-
-    # build the model from a config file and a checkpoint file
-    model = init_detector(config_file, checkpoint_file, device='cuda:0')
-    # test a single image
-    # print('test a single image')
-    #img_out = 'media/output/' + img_name
-    result = inference_detector(model, img_name)
+    demo = VisualizationDemo(cfg)
     
-    bbox_result, _ = result[:-1], None
-    bboxes = np.vstack(bbox_result)
-    labels = [
-        np.full(bbox.shape[0], i, dtype=np.int32)
-        for i, bbox in enumerate(bbox_result)
-    ]
-    
-    labels = np.concatenate(labels)
-    classes = model.CLASSES
-    print(labels)
+    img = read_image(img_name, format="BGR")
+    predictions, visualized_output = demo.run_on_image(img)
+
+    print(predictions)
+
+    # bbox
+    bboxes = np.array(predictions["instances"]._fields.get('pred_boxes').tensor.tolist())
+    # scores
+    scores = np.array(predictions["instances"]._fields.get('scores').tolist())
+
+    # labels
+    labels = np.array(predictions["instances"]._fields.get('pred_classes').tolist())
+    # classes
+    classes = ['brownblight', 'algal', 'blister', 'sunburn','fungi_early', 'roller',
+            'moth', 'tortrix', 'flushworm', 'caloptilia', 'mosquito_early', 'mosquito_late',
+            'miner', 'thrips', 'tetrany', 'formosa', 'other']
 
 
-    return labels, bboxes, classes
+    return labels, bboxes, classes, scores
 
 def demo(img_name, imgd):
 
-    labels, bboxes, classes = pred_img(img_name)
-    # print('drawing box')
+    labels, bboxes, classes, scores = pred_img(img_name)
+    #print('drawing box')
 
     colorfile = os.path.join(settings.BASE_DIR, 'imgUp/color.txt')
     colors = read_label_color(colorfile)
@@ -104,7 +104,10 @@ def demo(img_name, imgd):
                         width=800,
                         class_names=classes,
                         score_thr=0.5,
-                        out_file=img_name)
+                        out_file=img_name,
+                        scores = scores)
+    # visualized_output.save(img_name)
+
     return i
 
 
@@ -117,7 +120,8 @@ def draw_det_bboxes_A(img_name,
                         width=None,
                         class_names=None,
                         score_thr=0.5,
-                        out_file=None):
+                        out_file=None,
+                        scores = None):
     """Draw bboxes and class labels (with scores) on an image.
 
     Args:
@@ -133,7 +137,7 @@ def draw_det_bboxes_A(img_name,
     assert labels.ndim == 1
     assert bboxes.shape[0] == labels.shape[0]
     assert bboxes.shape[1] == 4 or bboxes.shape[1] == 5
-    
+
     img = imread(img_name)
     img = img.copy()
     
@@ -142,14 +146,14 @@ def draw_det_bboxes_A(img_name,
     ratio = width/ori_size[0]
     img = cv2.resize(img, (int(ori_size[1]*ratio),int(ori_size[0]*ratio)))
     
-    scores = bboxes[:, -1]
+    # scores = bboxes[:, -1]
 
-    if score_thr > 0.0:
-        assert bboxes.shape[1] == 5
-        inds = scores > score_thr
-        bboxes = bboxes[inds, :]
-        labels = labels[inds]
-        scores = scores[inds]
+    # if score_thr > 0.0:
+    #     assert bboxes.shape[1] == 5
+    #     inds = scores > score_thr
+    #     bboxes = bboxes[inds, :]
+    #     labels = labels[inds]
+    #     scores = scores[inds]
 
     # Pred = Prediction(img_name = str(imgd),
     #                     pred_num = labels.shape[0],
@@ -243,6 +247,8 @@ def write_det(Img, box_id, pred_cls, score, bbox_int, nodet=False):
             'formosa': ['小綠葉蟬', 'Jacobiasca formosana'],
             'caloptilia' : ['茶細蛾', 'Caloptilia roller'],
             'tetrany': ['蟎類', 'Tetrany'],
+            'sunburn': ['日燒症', 'Sunburn'],
+            'other': ['其他', 'other'],
         }
 
         htable = {
@@ -260,7 +266,9 @@ def write_det(Img, box_id, pred_cls, score, bbox_int, nodet=False):
             'flushworm': 'flushworm',
             'formosa': 'formosa',
             'caloptilia' : 'caloptilia',
-            'tetrany':'tetrany'
+            'tetrany':'tetrany',
+            'sunburn':'sunburn',
+            'other':'other'
         }
 
         pred_id = str(Img) + '_' + box_id

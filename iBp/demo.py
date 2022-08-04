@@ -5,7 +5,7 @@ import os
 import re
 import csv
 import shutil
-from cv2 import cv2
+import cv2
 import base64
 from io import BytesIO
 from PIL import Image

@@ -18,3 +18,5 @@ flushworm 192,0,128 aa
 formosa 192,128,0 aa
 caloptilia 192,128,0 aa
 tetrany 192,128,0 aa
+sunburn 192,128,0 aa
+other 192,128,0 aa

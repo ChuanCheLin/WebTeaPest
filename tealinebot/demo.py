@@ -2,7 +2,7 @@ import sys
 import os
 import csv
 import shutil
-from cv2 import cv2
+import cv2
 import numpy as np
 from .models import LineImg, Detection
 from mmcv.image import imread, imwrite

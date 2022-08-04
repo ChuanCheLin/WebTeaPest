@@ -103,12 +103,23 @@ WSGI_APPLICATION = 'teadiagnose.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'OPTIONS': {
+#             'read_default_file': '/etc/mysql/my.cnf',
+#         },
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': '/etc/mysql/my.cnf',
-        },
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'TeaServer',
+        'USER': 'eric',
+        'PASSWORD': 'eric1122',
+        'HOST': 'localhost', #'140.112.183.138',
+        'PORT': '3306',
     }
 }
 

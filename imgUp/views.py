@@ -18,7 +18,7 @@ import pytz
 default_context = {
     'counties' : County.objects.all(),
     'cities' : City.objects.none(),
-    'imgs' : Img.objects.get(img_id='noimg')
+    #'imgs' : Img.objects.get(img_id='noimg')
 }
 
 
@@ -47,22 +47,22 @@ def uploadImg(request):
 
     if request.method == 'POST':
         # if True:
-        try:
-            img_name = request.FILES.get('img')
-            img_name, img = save_image(img_name)
+        # try:
+        img_name = request.FILES.get('img')
+        img_name, img = save_image(img_name)
 
-            num = demo(img_name, img)
-            if request.POST.get('nope', False):
-                pass
-            else:
-                save_region(request, img)
+        num = demo(img_name, img)
+        if request.POST.get('nope', False):
+            pass
+        else:
+            save_region(request, img)
 
-            return id2result(img.img_id)
-        except:
+        return id2result(img.img_id)
+        # except:
 
-            err = 'wrong_input'
-            url = reverse('error', kwargs={'issue': err} )
-            return redirect('{}#upload'.format(url))
+        #     err = 'wrong_input'
+        #     url = reverse('error', kwargs={'issue': err} )
+        #     return redirect('{}#upload'.format(url))
 
     return render(request, 'imgUpload.html')
 
@@ -260,7 +260,7 @@ def mail_test(request):
     pass
 
 table_fullname = {
-    'mosquito_early': 'Tea Mosquito Bug Early-stage',
+    'mosquito_early': '盲椿象_早期',
     'mosquito_late':'盲椿象_晚期',
     'brownblight': '真菌及類真菌病害/赤葉枯病',
     'fungi_early': '真菌及類真菌病害',
@@ -272,4 +272,9 @@ table_fullname = {
     'moth': '害蟲/鱗翅目害蟲/捲葉蛾類/姬捲葉蛾',
     'tortrix': '害蟲/鱗翅目害蟲/捲葉蛾類/姬捲葉蛾',
     'flushworm': '害蟲/鱗翅目害蟲/捲葉蛾類/黑姬捲葉蛾',
+    'tetrany': '蟎類',
+    'caloptilia':'茶細蛾',
+    'sunburn':'日燒症',
+    'formosa':'小綠葉蟬',
+    'other': '其他'
 }

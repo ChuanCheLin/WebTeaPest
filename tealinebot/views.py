@@ -14,7 +14,6 @@ import urllib
 from urllib.request import urlopen
 import base64
 import json
-from flask import Flask, request, abort
 from iBp.demo import demoLinebot
 from linebot.models import (
     MessageEvent,
@@ -27,7 +26,7 @@ from linebot.models import (
     PostbackTemplateAction
 )
 
-from .demo import demo
+from imgUp.demo import demo
 
 #app = Flask(__name__)
 
@@ -107,7 +106,7 @@ def callback(request):
                 message_content = line_bot_api.get_message_content(event.message.id)
                 now = timezone.now() # current date and time
                 file_name = now.strftime("%Y%m%d_%H%M%S")
-                file_path = '/home/ssl/WebTeaPest/media/linebotphoto/'+file_name+'.jpg'
+                file_path = 'media/linebotphoto/'+file_name+'.jpg'
                 with open(file_path, 'wb') as fd:
                     for chunk in message_content.iter_content():
                         fd.write(chunk)
@@ -117,7 +116,7 @@ def callback(request):
 
                 #connect with db
                 img_name, img, imgid = save_image('linebotphoto/'+file_name+'.jpg')
-                demo(img_name, img)
+                # demo(img_name, img)
                 
 
                 #f = open(file_path, "rb") # open our image file as read only in binary mode
@@ -226,9 +225,16 @@ table = {
         'miner': '潛葉蠅',
         'thrips':'薊馬',
         'roller': '茶捲葉蛾',
+        'mosquito_late': '盲椿象_晚期',
+        'mosquito_early': '盲椿象_早期',
         'moth': '茶姬捲葉蛾',
         'tortrix': '茶姬捲葉蛾',
         'flushworm': '黑姬捲葉蛾',
+        'formosa': '小綠葉蟬',
+        'caloptilia' : '茶細蛾',
+        'tetrany': '蟎類',
+        'sunburn': '日燒症',
+        'other': '其他',
     }
 
 table_eng = {
@@ -259,8 +265,11 @@ table_fullname = {
     'moth': '害蟲/鱗翅目害蟲/捲葉蛾類/姬捲葉蛾',
     'tortrix': '害蟲/鱗翅目害蟲/捲葉蛾類/姬捲葉蛾',
     'flushworm': '害蟲/鱗翅目害蟲/捲葉蛾類/黑姬捲葉蛾',
-
-
+    'formosa': '小綠葉蟬',
+    'caloptilia' : '茶細蛾',
+    'tetrany': '蟎類',
+    'sunburn': '日燒症',
+    'other': '其他',
 }
 tablenum = {
         1: 'A',
@@ -269,6 +278,8 @@ tablenum = {
         4: 'D',
         5: 'E',
         6: 'F',
+        7: 'G',
+        8: 'H',
     }
 
 tableurl = {
@@ -278,12 +289,17 @@ tableurl = {
         'fungi_early': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254B026&',
         'blister': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254B050',
         'algal': 'https://web.tari.gov.tw/techcd/%E7%89%B9%E4%BD%9C/%E8%8C%B6%E6%A8%B9/%E7%97%85%E5%AE%B3/%E8%8C%B6%E6%A8%B9-%E8%97%BB%E6%96%91%E7%97%85.htm',
-        'miner': '潛葉蠅',
+        'miner': 'https://www.baphiq.gov.tw/Publish/plant_protect_pic_8/ricePDF/03-28.pdf',
         'thrips':'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C155&',
         'roller': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
         'moth': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
         'tortrix': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
         'flushworm': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
+        'formosa':'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C155&',
+        'caloptilia': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
+        'tetrany': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
+        'sunburn': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
+        'other': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
     }
 
 
@@ -341,7 +357,6 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import LineImg, Detection, Feedback
 from TeaData.models import County, City
-from .demo import demo
 from datetime import datetime
 from numpy.random import randint
 from django.utils import timezone

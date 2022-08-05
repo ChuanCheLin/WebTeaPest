@@ -13,7 +13,7 @@ import json
 import numpy as np
 from mmcv.image import imread, imwrite
 from datetime import datetime
-
+from imgUp.demo import pred_img, read_label_color
 
 def demo_test():
     img_name = '0721192833.jpg'
@@ -47,34 +47,6 @@ def base64_to_image(base64_str, image_path=None):
     if image_path:
         img.save(image_path)
     return image_path
-
-def read_label_color(file, BGR=True):
-    '''
-        Parameters
-        ----------
-        file : txt file
-            format: brownblight 255,102,0 orange
-    
-        Returns
-        -------
-        result : dict
-            format: [ 'brownblight' : [255, 102, 0]]
-    '''
-    color_dict = {}
-    
-    with open(file, 'r') as f:
-        lines = f.readlines()
-    
-    for l in lines:
-        strs = l.split(' ')
-        label = strs[0]
-        color = list(map(int, strs[1].split(',')))
-        if BGR:
-            color[0], color[2] = color[2], color[0]
-        color_dict[label] = color
-        
-    return color_dict
-
 
 def demoIBP(inputjson):
     # print(type(inputjson))
@@ -115,7 +87,7 @@ def demoLinebot(inputimage):
     out_name = 'media/iBp_temp/output.jpg'
     context = init_json(1)
     
-    labels, bboxes, classes = pred_img(img_name)
+    labels, bboxes, classes, scores = pred_img(img_name)
 
     colorfile = 'imgUp/color.txt'
     colors = read_label_color(colorfile)
@@ -125,6 +97,7 @@ def demoLinebot(inputimage):
                     labels,
                     context,
                     colors=colors,
+                    scores = scores,
                     class_names=classes,
                     score_thr=0.5,
                     out_file=out_name)
@@ -138,47 +111,17 @@ def demoLinebot(inputimage):
     return context
     
 
-def pred_img(img_name):
-
-    from mmdet.apis import init_detector, inference_detector
-
-    config_file = '/home/ssl/TeaDisease/configs/_xm/webdemo.py'
-    
-    # download the checkpoint from model zoo and put it in `checkpoints/`
-    
-    checkpoint_file = '/home/ssl/TeaDisease/work_dirs/web/webdemo.pth'
-
-    # build the model from a config file and a checkpoint file
-    model = init_detector(config_file, checkpoint_file, device='cuda:0')
-    # test a single image
-    
-    print(img_name)
-    #img_out = 'media/output/' + img_name
-    result = inference_detector(model, img_name)
-
-    colorfile = 'imgUp/color.txt'
-    colors = read_label_color(colorfile)
-    
-    bbox_result, segm_result = result[:-1], None
-    bboxes = np.vstack(bbox_result)
-    labels = [
-        np.full(bbox.shape[0], i, dtype=np.int32)
-        for i, bbox in enumerate(bbox_result)
-    ]
-    
-    labels = np.concatenate(labels)
-    classes = model.CLASSES
-    return labels, bboxes, classes
-
 def draw_bboxes(img_name,
                 bboxes,
                 labels,
                 context,
                 colors,
+                scores,
                 width=None,
                 class_names=None,
                 score_thr=0.5,
-                out_file=None):
+                out_file=None
+                ):
     """Draw bboxes and class labels (with scores) on an image.
 
     Args:
@@ -205,12 +148,12 @@ def draw_bboxes(img_name,
     pr = ori_size[0]/800
     scores = bboxes[:, -1]
 
-    if score_thr > 0.0:
-        assert bboxes.shape[1] == 5
-        inds = scores > score_thr
-        bboxes = bboxes[inds, :]
-        labels = labels[inds]
-        scores = scores[inds]
+    # if score_thr > 0.0:
+    #     assert bboxes.shape[1] == 5
+    #     inds = scores > score_thr
+    #     bboxes = bboxes[inds, :]
+    #     labels = labels[inds]
+    #     scores = scores[inds]
 
     pred_num = labels.shape[0]
     context["numofPredictions"] = pred_num
@@ -275,6 +218,11 @@ def init_json(dataTime):
             'moth': [],                                         #'茶姬捲葉蛾_傷口',
             'tortrix': [],                                      #'茶姬捲葉蛾_捲葉',
             'flushworm': [],                                    #'黑姬捲葉蛾',
+            'formosa': [],
+            'caloptilia' : [],
+            'tetrany': [],
+            'sunburn': [],
+            'other': [],
             },
     }
 
@@ -296,6 +244,11 @@ def write_det(Pred, box_id, pred_cls, score, bbox_int):
         'moth': '茶姬捲葉蛾',
         'tortrix': '茶姬捲葉蛾',
         'flushworm': '黑姬捲葉蛾',
+        'formosa': '小綠葉蟬',
+        'caloptilia' : '茶細蛾',
+        'tetrany': '蟎類',
+        'sunburn': '日燒症',
+        'other': '其他',
     }
 
     htable = {

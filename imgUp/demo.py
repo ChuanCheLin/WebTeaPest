@@ -75,6 +75,7 @@ def pred_img(img_name):
 
     # bbox
     bboxes = np.array(predictions["instances"]._fields.get('pred_boxes').tensor.tolist())
+    print(bboxes.ndim)
     # scores
     scores = np.array(predictions["instances"]._fields.get('scores').tolist())
 

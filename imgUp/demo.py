@@ -71,11 +71,9 @@ def pred_img(img_name):
     img = read_image(img_name, format="BGR")
     predictions, visualized_output = demo.run_on_image(img)
 
-    print(predictions)
-
     # bbox
     bboxes = np.array(predictions["instances"]._fields.get('pred_boxes').tensor.tolist())
-    print(bboxes.ndim)
+
     # scores
     scores = np.array(predictions["instances"]._fields.get('scores').tolist())
 
@@ -85,6 +83,12 @@ def pred_img(img_name):
     classes = ['brownblight', 'algal', 'blister', 'sunburn','fungi_early', 'roller',
             'moth', 'tortrix', 'flushworm', 'caloptilia', 'mosquito_early', 'mosquito_late',
             'miner', 'thrips', 'tetrany', 'formosa', 'other']
+
+    # remove other
+    bboxes, scores, labels = zip(*((x, y, z) for x, y, z in zip(bboxes, scores, labels) if z != 16)) # other's label is 16
+    bboxes = np.array(list(bboxes))
+    scores = np.array(list(scores))
+    labels = np.array(list(labels))
 
 
     return labels, bboxes, classes, scores

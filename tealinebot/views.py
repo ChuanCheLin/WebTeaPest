@@ -253,8 +253,8 @@ table_eng = {
     }
 
 table_fullname = {
-    'mosquito_early': 'Tea Mosquito Bug Early-stage',
-    'mosquito_late':'盲椿象_晚期',
+    'mosquito_early': '害蟲/半赤目/椿象類/黑盲椿象',
+    'mosquito_late':'害蟲/半赤目/椿象類/黑盲椿象',
     'brownblight': '真菌及類真菌病害/赤葉枯病',
     'fungi_early': '真菌及類真菌病害',
     'blister': '真菌及類真菌病害/茶餅病',
@@ -265,12 +265,13 @@ table_fullname = {
     'moth': '害蟲/鱗翅目害蟲/捲葉蛾類/姬捲葉蛾',
     'tortrix': '害蟲/鱗翅目害蟲/捲葉蛾類/姬捲葉蛾',
     'flushworm': '害蟲/鱗翅目害蟲/捲葉蛾類/黑姬捲葉蛾',
-    'formosa': '小綠葉蟬',
-    'caloptilia' : '茶細蛾',
-    'tetrany': '蟎類',
-    'sunburn': '日燒症',
-    'other': '其他',
+    'tetrany': '害蟲/蟎蜱類/葉蟎類',
+    'caloptilia':'害蟲/鱗翅目害蟲/細蛾類',
+    'sunburn':'日燒症',
+    'formosa':'害蟲/半翅目/葉蟬類/小綠葉蟬',
+    'other': '其他'
 }
+
 tablenum = {
         1: 'A',
         2: 'B',
@@ -295,10 +296,10 @@ tableurl = {
         'moth': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
         'tortrix': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
         'flushworm': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
-        'formosa':'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C155&',
-        'caloptilia': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
-        'tetrany': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
-        'sunburn': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
+        'formosa':'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?CropNo=00254C014&SRH=%e8%8c%b6%e5%b0%8f%e7%b6%a0%e8%91%89&',
+        'caloptilia': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?CropNo=00254C084&SRH=%e8%8c%b6%e6%8d%b2%e8%91%89%e8%9b%be&',
+        'tetrany': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?CropNo=00254C124&SRH=%e8%8c%b6%e8%91%89%e8%9f%8e%e9%a1%9e&',
+        'sunburn': 'https://kmweb.coa.gov.tw/knowledgebase.php?func=1&type=12763&id=25984',
         'other': 'https://otserv2.tactri.gov.tw/PPM/PLC0101.aspx?UpPage=PLC01&CropNo=00254C084',
     }
 

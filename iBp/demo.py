@@ -88,6 +88,7 @@ def demoLinebot(inputimage):
     context = init_json(1)
     
     labels, bboxes, classes, scores = pred_img(img_name)
+    print(scores)
 
     colorfile = 'imgUp/color.txt'
     colors = read_label_color(colorfile)
@@ -133,10 +134,11 @@ def draw_bboxes(img_name,
         score_thr (float): Minimum score of bboxes to be shown.
         out_file (str or None): The filename to write the image.
     """
-    assert bboxes.ndim == 2
-    assert labels.ndim == 1
-    assert bboxes.shape[0] == labels.shape[0]
-    assert bboxes.shape[1] == 4 or bboxes.shape[1] == 5
+    if len(scores) != 0:
+        assert bboxes.ndim == 2
+        assert labels.ndim == 1
+        assert bboxes.shape[0] == labels.shape[0]
+        assert bboxes.shape[1] == 4 or bboxes.shape[1] == 5
     
     img = imread(img_name)
     img = img.copy()
@@ -146,7 +148,6 @@ def draw_bboxes(img_name,
     width = ori_size[0]
     ratio = 1
     pr = ori_size[0]/800
-    scores = bboxes[:, -1]
 
     # if score_thr > 0.0:
     #     assert bboxes.shape[1] == 5
@@ -160,36 +161,36 @@ def draw_bboxes(img_name,
 
     ABC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     i = 0
-    
-    for bbox, label, score in zip(bboxes, labels, scores):
-        
-        pred_cls = class_names[label]
-        color = colors[pred_cls]
-        box_id = ABC[i]
-        
-        bbox = bbox*ratio
-        bbox_int = bbox.astype(np.int32)
 
-        det =  {"bboxId":box_id, "score": float(score) ,
-                "xmin":int(bbox_int[0]), "ymin":int(bbox_int[1]),
-                "xmax":int(bbox_int[2]), "ymax":int(bbox_int[3]) }
+    if len(scores) != 0:
+        for bbox, label, score in zip(bboxes, labels, scores):
+            
+            pred_cls = class_names[label]
+            color = colors[pred_cls]
+            box_id = ABC[i]
+            
+            bbox = bbox*ratio
+            bbox_int = bbox.astype(np.int32)
 
-        context["pestTable"][pred_cls].append(det)
-        
-        left_top = (bbox_int[0], bbox_int[1])
-        right_bottom = (bbox_int[2], bbox_int[3])
-        
-        cv2.rectangle(img, (left_top[0], left_top[1]),
-                      (right_bottom[0], right_bottom[1]), color, int(4*pr))
-        text_size, baseline = cv2.getTextSize(box_id,
-                                              cv2.FONT_HERSHEY_SIMPLEX, int(1.3*pr), int(2*pr))
-        p1 = (left_top[0], left_top[1] + text_size[1])
-        cv2.rectangle(img, tuple(left_top), (p1[0] + text_size[0], p1[1]+1 ), color, -1)
-        cv2.putText(img, box_id, (p1[0], p1[1]),
-                    cv2.FONT_HERSHEY_SIMPLEX, int(1.3*pr), (255,255,255), int(2*pr), 8)
-        
-        i += 1
-        
+            det =  {"bboxId":box_id, "score": float(score) ,
+                    "xmin":int(bbox_int[0]), "ymin":int(bbox_int[1]),
+                    "xmax":int(bbox_int[2]), "ymax":int(bbox_int[3]) }
+
+            context["pestTable"][pred_cls].append(det)
+            
+            left_top = (bbox_int[0], bbox_int[1])
+            right_bottom = (bbox_int[2], bbox_int[3])
+            
+            cv2.rectangle(img, (left_top[0], left_top[1]),
+                        (right_bottom[0], right_bottom[1]), color, int(4*pr))
+            text_size, baseline = cv2.getTextSize(box_id,
+                                                cv2.FONT_HERSHEY_SIMPLEX, int(1.3*pr), int(2*pr))
+            p1 = (left_top[0], left_top[1] + text_size[1])
+            cv2.rectangle(img, tuple(left_top), (p1[0] + text_size[0], p1[1]+1 ), color, -1)
+            cv2.putText(img, box_id, (p1[0], p1[1]),
+                        cv2.FONT_HERSHEY_SIMPLEX, int(1.3*pr), (255,255,255), int(2*pr), 8)
+            
+            i += 1
         
     print('done   '+ str(out_file))
         
@@ -261,8 +262,6 @@ def write_det(Pred, box_id, pred_cls, score, bbox_int):
         'miner': 'miner',
         'thrips':'thrips',
         'roller': 'roller',
-        'mosquito_late': 'mosquito',
-        'mosquito_early': 'mosquito',
         'moth': 'tortrix',
         'tortrix': 'tortrix',
         'flushworm': 'flushworm',

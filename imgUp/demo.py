@@ -62,8 +62,8 @@ def pred_img(img_name):
 
     cfg = get_cfg()
     cfg.merge_from_file('/home/eric/FSCE_tea-diseases/checkpoints/config.yaml')
-    cfg.MODEL.RETINANET.SCORE_THRESH_TEST = 0.5
-    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
+    cfg.MODEL.RETINANET.SCORE_THRESH_TEST = 0.6
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.6
     cfg.freeze()
 
     demo = VisualizationDemo(cfg)
@@ -84,13 +84,13 @@ def pred_img(img_name):
             'moth', 'tortrix', 'flushworm', 'caloptilia', 'mosquito_early', 'mosquito_late',
             'miner', 'thrips', 'tetrany', 'formosa', 'other']
 
-    # remove other
-    bboxes, scores, labels = zip(*((x, y, z) for x, y, z in zip(bboxes, scores, labels) if z != 16)) # other's label is 16
-    bboxes = np.array(list(bboxes))
-    scores = np.array(list(scores))
-    labels = np.array(list(labels))
-
-
+    if len(scores) != 0:
+        # remove other
+        bboxes, scores, labels = zip(*((x, y, z) for x, y, z in zip(bboxes, scores, labels) if z != 16)) # other's label is 16
+        bboxes = np.array(list(bboxes))
+        scores = np.array(list(scores))
+        labels = np.array(list(labels))
+       
     return labels, bboxes, classes, scores
 
 def demo(img_name, imgd):
@@ -138,10 +138,11 @@ def draw_det_bboxes_A(img_name,
         score_thr (float): Minimum score of bboxes to be shown.
         out_file (str or None): The filename to write the image.
     """
-    assert bboxes.ndim == 2
-    assert labels.ndim == 1
-    assert bboxes.shape[0] == labels.shape[0]
-    assert bboxes.shape[1] == 4 or bboxes.shape[1] == 5
+    if len(scores) != 0:
+        assert bboxes.ndim == 2
+        assert labels.ndim == 1
+        assert bboxes.shape[0] == labels.shape[0]
+        assert bboxes.shape[1] == 4 or bboxes.shape[1] == 5
 
     img = imread(img_name)
     img = img.copy()
@@ -178,36 +179,35 @@ def draw_det_bboxes_A(img_name,
 
     ABC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     i = 0
-    
-    for bbox, label, score in zip(bboxes, labels, scores):
-        
-        pred_cls = class_names[label]
-        color = colors[pred_cls]
-        box_id = ABC[i]
-        
-        bbox = bbox*ratio
-        bbox_int = bbox.astype(np.int32)
+    if len(scores) != 0:
+        for bbox, label, score in zip(bboxes, labels, scores):
+            
+            pred_cls = class_names[label]
+            color = colors[pred_cls]
+            box_id = ABC[i]
+            
+            bbox = bbox*ratio
+            bbox_int = bbox.astype(np.int32)
 
-        write_det(imgd,
-                box_id,
-                pred_cls,
-                score,
-                bbox_int)
-        
-        left_top = (bbox_int[0], bbox_int[1])
-        right_bottom = (bbox_int[2], bbox_int[3])
-        
-        cv2.rectangle(img, (left_top[0], left_top[1]),
-                      (right_bottom[0], right_bottom[1]), color, 4)
-        text_size, baseline = cv2.getTextSize(box_id,
-                                              cv2.FONT_HERSHEY_SIMPLEX, 1.3, 2)
-        p1 = (left_top[0], left_top[1] + text_size[1])
-        cv2.rectangle(img, tuple(left_top), (p1[0] + text_size[0], p1[1]+1 ), color, -1)
-        cv2.putText(img, box_id, (p1[0], p1[1]),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1.3, (255,255,255), 2, 8)
-        
-        i += 1
-        
+            write_det(imgd,
+                    box_id,
+                    pred_cls,
+                    score,
+                    bbox_int)
+            
+            left_top = (bbox_int[0], bbox_int[1])
+            right_bottom = (bbox_int[2], bbox_int[3])
+            
+            cv2.rectangle(img, (left_top[0], left_top[1]),
+                        (right_bottom[0], right_bottom[1]), color, 4)
+            text_size, baseline = cv2.getTextSize(box_id,
+                                                cv2.FONT_HERSHEY_SIMPLEX, 1.3, 2)
+            p1 = (left_top[0], left_top[1] + text_size[1])
+            cv2.rectangle(img, tuple(left_top), (p1[0] + text_size[0], p1[1]+1 ), color, -1)
+            cv2.putText(img, box_id, (p1[0], p1[1]),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1.3, (255,255,255), 2, 8)
+            
+            i += 1
         
     print('done   '+ str(out_file))
     

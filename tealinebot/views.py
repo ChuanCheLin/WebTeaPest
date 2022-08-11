@@ -164,29 +164,10 @@ def callback(request):
                                 dets.append(
                                     PostbackTemplateAction(label=mesg,text=mesg, data= 'A&' + predid + '&' + uri)
                                 )
-                            '''
-                            line_bot_api.push_message(user_id,TemplateSendMessage(
-                                alt_text='傳送了辨識結果給您',
-                                template=ButtonsTemplate(
-                                    #title='病蟲害檢測結果',
-                                    #text='想了解更多資訊請點擊連結',
-                                    title='Identification Results',
-                                    text='press the link for more information',
-                                    actions=[
-                                        URITemplateAction(
-                                            label=mesg,
-                                            uri=tableurl.get(num)
-                                        )
-                                        ]
-                                    )
-                                )
-                                
-                            )
-                            '''
                             count=count+1
-                #if len(dets)==0:
-                #    dets.append(URITemplateAction(label='未辨識出病蟲害',uri="https://forms.gle/26jUSkEBaNqRV1YR7"))
-                #dets.append(PostbackTemplateAction(label='誤判回報',text='誤判回報', data= 'A'))
+                if len(dets)==0:
+                   dets.append(URITemplateAction(label='未辨識出病蟲害',uri="https://forms.gle/26jUSkEBaNqRV1YR7"))
+                dets.append(PostbackTemplateAction(label='誤判回報',text='誤判回報', data= 'A'))
 
                 #回報問題 測試用
                 # if len(dets) < 4:

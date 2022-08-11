@@ -141,7 +141,8 @@ def showImg(request, img_id=None):
     prescriptions_url = "http://teas.agiot.tw/search2#FIND:"
     for det in dets:
         name = table_fullname.get(det.pred_cls)
-        prescriptions_url = prescriptions_url + name + ","
+        if name is not None:
+            prescriptions_url = prescriptions_url + name + ","
     #print(prescriptions_url)
 
     context = {

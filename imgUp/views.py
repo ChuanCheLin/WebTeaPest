@@ -262,8 +262,8 @@ def mail_test(request):
     pass
 
 table_fullname = {
-    'mosquito_early': '害蟲/半赤目/椿象類/黑盲椿象',
-    'mosquito_late':'害蟲/半赤目/椿象類/黑盲椿象',
+    'mosquito_early': '害蟲/半翅目/椿象類/黑盲椿象',
+    'mosquito_late':'害蟲/半翅目/椿象類/黑盲椿象',
     'brownblight': '真菌及類真菌病害/赤葉枯病',
     'fungi_early': '真菌及類真菌病害',
     'blister': '真菌及類真菌病害/茶餅病',

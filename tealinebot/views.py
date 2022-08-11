@@ -140,10 +140,13 @@ def callback(request):
                 user_id = event.source.user_id
                 count=1
                 nums=context["pestTable"]
-                dets = []
+                detections = []
+                detection = [] # each respond must be no larger than 4 instances
+
                 prescriptions_url = "http://teas.agiot.tw/search2#FIND:"
                 for num in nums:
                     if len(nums[num])!=0 :
+                        print(num)
                         for i in range(len(nums[num])):                      
                             #中文版 
                             mesg = '%s: %s' %(tablenum.get(count), table.get(num)) 
@@ -160,38 +163,50 @@ def callback(request):
                             # line_bot_api.push_message(user_id, TextSendMessage(tablenum.get(count)))
                             # line_bot_api.push_message(user_id, TextSendMessage(table.get(num)))
                             #line_bot_api.push_message(user_id, TextSendMessage(mesg))
-                            if len(dets) < 4:
-                                dets.append(
-                                    PostbackTemplateAction(label=mesg,text=mesg, data= 'A&' + predid + '&' + uri)
-                                )
+                            detection.append(
+                                PostbackTemplateAction(label=mesg,text=mesg, data= 'A&' + predid + '&' + uri)
+                            )
                             count=count+1
-                if len(dets)==0:
-                   dets.append(URITemplateAction(label='未辨識出病蟲害',uri="https://forms.gle/26jUSkEBaNqRV1YR7"))
-                dets.append(PostbackTemplateAction(label='誤判回報',text='誤判回報', data= 'A'))
+                            if len(detection) == 4:
+                                detections.append(detection)
+                                detection = []
 
-                #回報問題 測試用
-                # if len(dets) < 4:
-                #     dets.append(URITemplateAction(label='回報問題',uri="https://forms.gle/26jUSkEBaNqRV1YR7"))
+                if len(detections)==0 and len(detection) == 0:
+                    detection.append(URITemplateAction(label='未辨識出病蟲害',uri="https://forms.gle/26jUSkEBaNqRV1YR7"))
                 
+                detection.append(URITemplateAction(label='智能用藥處方籤',uri= prescriptions_url ))
+                if len(detection) == 4:
+                    detections.append(detection)
+                    detection = []
 
-                if len(dets) < 4:
-                    dets.append(URITemplateAction(label='智能用藥處方籤',uri= prescriptions_url ))
-                #dets.append(URITemplateAction(label=mesg,uri=tableurl.get(num)))
+                detection.append(PostbackTemplateAction(label='誤判回報',text='誤判回報', data= 'A'))
+                if len(detection) == 4:
+                    detections.append(detection)
+                    detection = []
+
+                # 回報問題 測試用
+                detection.append(URITemplateAction(label='使用回饋表單',uri="https://forms.gle/26jUSkEBaNqRV1YR7"))
+                if len(detection) == 4:
+                    detections.append(detection)
+                    detection = []
+
+
                 
+                detections.append(detection)
 
-                        
-                line_bot_api.push_message(user_id,TemplateSendMessage(
-                    alt_text='傳送了辨識結果給您',
-                    template=ButtonsTemplate(
-                        title='Image ID: '+ imgid,  #病蟲害檢測結果
-                        text='想了解更多資訊請點擊連結',
-                        #Eng version
-                        #title='Identification Results',
-                        #text='press the link for more information',
-                        actions = dets
+                for i in range(len(detections)):
+                    line_bot_api.push_message(user_id,TemplateSendMessage(
+                        alt_text='傳送了辨識結果給您',
+                        template=ButtonsTemplate(
+                            title='Image ID: '+ imgid,  #病蟲害檢測結果
+                            text='想了解更多資訊請點擊連結',
+                            #Eng version
+                            #title='Identification Results',
+                            #text='press the link for more information',
+                            actions = detections[i]
+                            )
                         )
                     )
-                )
         return HttpResponse()    
     else:
         return HttpResponseBadRequest()
@@ -234,8 +249,8 @@ table_eng = {
     }
 
 table_fullname = {
-    'mosquito_early': '害蟲/半赤目/椿象類/黑盲椿象',
-    'mosquito_late':'害蟲/半赤目/椿象類/黑盲椿象',
+    'mosquito_early': '害蟲/半翅目/椿象類/黑盲椿象',
+    'mosquito_late':'害蟲/半翅目/椿象類/黑盲椿象',
     'brownblight': '真菌及類真菌病害/赤葉枯病',
     'fungi_early': '真菌及類真菌病害',
     'blister': '真菌及類真菌病害/茶餅病',

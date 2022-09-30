@@ -85,12 +85,29 @@ def pred_img(img_name):
             'moth', 'tortrix', 'flushworm', 'caloptilia', 'mosquito_early', 'mosquito_late',
             'miner', 'thrips', 'tetrany', 'formosa', 'other']
 
+    print(labels)
+    print(bboxes)
+    print(classes)
+    print(scores)
+
+    other_only = True # if contains other only
     if len(scores) != 0:
-        # remove other
-        bboxes, scores, labels = zip(*((x, y, z) for x, y, z in zip(bboxes, scores, labels) if z != 16)) # other's label is 16
-        bboxes = np.array(list(bboxes))
-        scores = np.array(list(scores))
-        labels = np.array(list(labels))
+        for label in labels:
+            if label != 16:
+                other_only = False
+                break
+
+        if other_only:
+            labels = np.array([])
+            bboxes = np.array([])
+            scores = np.array([])
+
+        else:
+            # remove other
+            bboxes, scores, labels = zip(*((x, y, z) for x, y, z in zip(bboxes, scores, labels) if z != 16)) # other's label is 16
+            bboxes = np.array(list(bboxes))
+            scores = np.array(list(scores))
+            labels = np.array(list(labels))
        
     return labels, bboxes, classes, scores
 

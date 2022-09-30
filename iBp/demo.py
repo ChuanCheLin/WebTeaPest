@@ -57,7 +57,7 @@ def demoIBP(inputjson):
 
     context = init_json(inputjson['dataTime'])
     
-    labels, bboxes, classes = pred_img(img_name)
+    labels, bboxes, classes, _ = pred_img(img_name)
 
     colorfile = 'imgUp/color.txt'
     colors = read_label_color(colorfile)
@@ -88,7 +88,6 @@ def demoLinebot(inputimage):
     context = init_json(1)
     
     labels, bboxes, classes, scores = pred_img(img_name)
-    print(scores)
 
     colorfile = 'imgUp/color.txt'
     colors = read_label_color(colorfile)

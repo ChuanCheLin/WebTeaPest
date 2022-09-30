@@ -85,10 +85,10 @@ def pred_img(img_name):
             'moth', 'tortrix', 'flushworm', 'caloptilia', 'mosquito_early', 'mosquito_late',
             'miner', 'thrips', 'tetrany', 'formosa', 'other']
 
-    print(labels)
-    print(bboxes)
-    print(classes)
-    print(scores)
+    # print(labels)
+    # print(bboxes)
+    # print(classes)
+    # print(scores)
 
     other_only = True # if contains other only
     if len(scores) != 0:

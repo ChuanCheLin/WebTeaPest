@@ -62,7 +62,7 @@ def pred_img(img_name):
     # print('import library')
 
     cfg = get_cfg()
-    cfg.merge_from_file('/home/eric/FSCE_tea-diseases/checkpoints/config.yaml')
+    cfg.merge_from_file('../FSCE_tea-diseases/checkpoints/config.yaml')
     cfg.MODEL.RETINANET.SCORE_THRESH_TEST = 0.6
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.6
     cfg.freeze()

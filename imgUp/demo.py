@@ -12,6 +12,10 @@ import pytz
 from datetime import datetime
 from django.conf import settings
 
+from fsdet.data.detection_utils import read_image
+from fsdet.config import get_cfg
+from .predictor import VisualizationDemo
+
 
 def demo_test():
     img_name = 'test.jpg'
@@ -56,9 +60,6 @@ def read_label_color(file, BGR=True):
 def pred_img(img_name):
 
     # print('import library')
-    from fsdet.data.detection_utils import read_image
-    from fsdet.config import get_cfg
-    from .predictor import VisualizationDemo
 
     cfg = get_cfg()
     cfg.merge_from_file('/home/eric/FSCE_tea-diseases/checkpoints/config.yaml')
@@ -144,7 +145,7 @@ def draw_det_bboxes_A(img_name,
         assert bboxes.shape[0] == labels.shape[0]
         assert bboxes.shape[1] == 4 or bboxes.shape[1] == 5
 
-    img = imread(img_name)
+    img = read_image(img_name, format="BGR")
     img = img.copy()
     
     ori_size = img.shape

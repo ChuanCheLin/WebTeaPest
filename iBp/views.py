@@ -13,18 +13,21 @@ from django.views.decorators.csrf import csrf_exempt
 @method_decorator(csrf_exempt)
 def ibpinterface(request):
     print("recieve from iBP!")
-    # print(request)
+    #print(request)
     if request.method == 'POST':
-        # print(dir(request))
+        #print(dir(request))
         body = request.body
+        # print(body)
         body = body.decode('utf8')
+        # print(body)
+
         data = json.loads(body)
         try:
             data = json.loads(data)
         except:
             pass
-        #print(type(data))
-        #print(data)
+        # print(type(data))
+        # print(data)
         # if True:
         try:
             if 'Image' in data:

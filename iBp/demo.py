@@ -56,8 +56,9 @@ def demoIBP(inputjson):
     img_name = base64_to_image(inputjson['Image'], img_name) 
 
     context = init_json(inputjson['dataTime'])
+
     
-    labels, bboxes, classes, _ = pred_img(img_name)
+    labels, bboxes, classes, scores = pred_img(img_name)
 
     colorfile = 'imgUp/color.txt'
     colors = read_label_color(colorfile)
@@ -67,6 +68,7 @@ def demoIBP(inputjson):
                     labels,
                     context,
                     colors=colors,
+                    scores = scores,
                     class_names=classes,
                     score_thr=0.5,
                     out_file=out_name)
@@ -76,7 +78,6 @@ def demoIBP(inputjson):
     if write_base64:
         out64 = image_to_base64(out_name)
         context["resultImage"] = str(out64, encoding='utf-8')
-        
 
     return context
 

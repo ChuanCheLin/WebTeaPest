@@ -62,7 +62,7 @@ def pred_img(img_name):
     # print('import library')
 
     cfg = get_cfg()
-    cfg.merge_from_file('../FSCE_tea-diseases/checkpoints/config.yaml')
+    cfg.merge_from_file('./checkpoints/tea_disease/config.yaml')
     cfg.MODEL.RETINANET.SCORE_THRESH_TEST = 0.6
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.6
     cfg.freeze()
@@ -111,7 +111,7 @@ def pred_img_tea_bud(img_name):
     # print('import library')
 
     cfg = get_cfg()
-    cfg.merge_from_file('../FSCE_tea-diseases/checkpoints/teabud/config.yaml')
+    cfg.merge_from_file('./checkpoints/tea_bud/config.yaml')
     cfg.MODEL.RETINANET.SCORE_THRESH_TEST = 0.6
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.6
     cfg.freeze()

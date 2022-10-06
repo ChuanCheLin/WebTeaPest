@@ -13,7 +13,7 @@ import json
 import numpy as np
 from mmcv.image import imread, imwrite
 from datetime import datetime
-from imgUp.demo import pred_img, read_label_color
+from imgUp.demo import pred_img, read_label_color, pred_img_tea_bud
 
 def demo_test():
     img_name = '0721192833.jpg'
@@ -108,6 +108,20 @@ def demoLinebot(inputimage):
         out64 = image_to_base64(out_name)
         context["resultImage"] = out64
         
+
+    return context
+
+def demoTeabud(inputjson):
+    # print(type(inputjson))
+    img_name = 'media/iBp_temp/input.jpg'
+
+    img_name = base64_to_image(inputjson['Image'], img_name) 
+
+    context = init_json_teabud(inputjson['dataTime'])
+
+    labels, bboxes, classes, scores = pred_img_tea_bud(img_name)
+
+    context["numofPredictions"] = len(labels)
 
     return context
     
@@ -225,6 +239,14 @@ def init_json(dataTime):
             'sunburn': [],
             'other': [],
             },
+    }
+
+    return context
+
+def init_json_teabud(dataTime):
+    context = {
+        "dataTime": dataTime, # 時間ID, 與原來接收之ID相同
+        "numofPredictions": 0,           # int, 總計辨識框數量，通常不會多於20
     }
 
     return context

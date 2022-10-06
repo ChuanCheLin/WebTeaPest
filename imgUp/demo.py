@@ -85,11 +85,6 @@ def pred_img(img_name):
             'moth', 'tortrix', 'flushworm', 'caloptilia', 'mosquito_early', 'mosquito_late',
             'miner', 'thrips', 'tetrany', 'formosa', 'other']
 
-    # print(labels)
-    # print(bboxes)
-    # print(classes)
-    # print(scores)
-
     other_only = True # if contains other only
     if len(scores) != 0:
         for label in labels:
@@ -108,6 +103,34 @@ def pred_img(img_name):
             bboxes = np.array(list(bboxes))
             scores = np.array(list(scores))
             labels = np.array(list(labels))
+       
+    return labels, bboxes, classes, scores
+
+def pred_img_tea_bud(img_name):
+
+    # print('import library')
+
+    cfg = get_cfg()
+    cfg.merge_from_file('../FSCE_tea-diseases/checkpoints/teabud/config.yaml')
+    cfg.MODEL.RETINANET.SCORE_THRESH_TEST = 0.6
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.6
+    cfg.freeze()
+
+    demo = VisualizationDemo(cfg)
+    
+    img = read_image(img_name, format="BGR")
+    predictions, visualized_output = demo.run_on_image(img)
+
+    # bbox
+    bboxes = np.array(predictions["instances"]._fields.get('pred_boxes').tensor.tolist())
+
+    # scores
+    scores = np.array(predictions["instances"]._fields.get('scores').tolist())
+
+    # labels
+    labels = np.array(predictions["instances"]._fields.get('pred_classes').tolist())
+    # classes
+    classes = ['tea bud 1', 'tea bud 2', 'tea bud 3']
        
     return labels, bboxes, classes, scores
 

@@ -7,11 +7,6 @@ algal 128,128,0 aa
 miner 0,0,128 aa
 thrips 128,0,128 aa
 roller 0,128,128 aa
-roll_leaf 128,128,128 aa
-mosquito 64,0,0 aa
-mos_dot 192,0,0 aa
-mos_early 64,128,0 aa
-mos_larva 192,128,0 aa
 moth 64,0,128 aa
 tortrix 64,128,128 aa
 flushworm 192,0,128 aa
@@ -20,3 +15,11 @@ caloptilia 192,128,0 aa
 tetrany 192,128,0 aa
 sunburn 192,128,0 aa
 other 192,128,0 aa
+health 155,27,48 orange
+virus 204,102,0 suguralmond
+anthracnose 128,0,0 aa
+downy 102,102,255 purpleblue
+corynespora 192,128,0 aa
+powdery 155,27,48 orange
+malnutrition 102,102,255 purpleblue
+leafminer 155,27,48 orange

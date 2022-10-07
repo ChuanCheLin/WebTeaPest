@@ -106,6 +106,51 @@ def pred_img(img_name):
        
     return labels, bboxes, classes, scores
 
+def pred_img_cucumber(img_name):
+
+    cfg = get_cfg()
+    cfg.merge_from_file('./checkpoints/cucumber/config.yaml')
+    cfg.MODEL.RETINANET.SCORE_THRESH_TEST = 0.6
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.6
+    cfg.freeze()
+
+    demo = VisualizationDemo(cfg)
+    
+    img = read_image(img_name, format="BGR")
+    predictions, visualized_output = demo.run_on_image(img)
+
+    # bbox
+    bboxes = np.array(predictions["instances"]._fields.get('pred_boxes').tensor.tolist())
+
+    # scores
+    scores = np.array(predictions["instances"]._fields.get('scores').tolist())
+
+    # labels
+    labels = np.array(predictions["instances"]._fields.get('pred_classes').tolist())
+    # classes
+    classes = ['health', 'virus', 'anthracnose', 'downy', 'corynespora', 'powdery', 'malnutrition', 'leafminer']
+
+    health_only = True # if contains health only
+    if len(scores) != 0:
+        for label in labels:
+            if label != 0:
+                health_only = False
+                break
+
+        if health_only:
+            labels = np.array([])
+            bboxes = np.array([])
+            scores = np.array([])
+
+        else:
+            # remove health
+            bboxes, scores, labels = zip(*((x, y, z) for x, y, z in zip(bboxes, scores, labels) if z != 0)) # health's label is 0
+            bboxes = np.array(list(bboxes))
+            scores = np.array(list(scores))
+            labels = np.array(list(labels))
+       
+    return labels, bboxes, classes, scores
+
 def pred_img_tea_bud(img_name):
 
     # print('import library')

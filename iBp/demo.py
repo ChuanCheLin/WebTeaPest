@@ -13,7 +13,7 @@ import json
 import numpy as np
 from mmcv.image import imread, imwrite
 from datetime import datetime
-from imgUp.demo import pred_img, read_label_color, pred_img_tea_bud
+from imgUp.demo import pred_img, read_label_color, pred_img_tea_bud, pred_img_cucumber
 
 def demo_test():
     img_name = '0721192833.jpg'
@@ -81,6 +81,40 @@ def demoIBP(inputjson):
 
     return context
 
+def demoIBP_cucumber(inputjson):
+
+    img_name = 'media/iBp_temp/input.jpg'
+    out_name = 'media/iBp_temp/output.jpg'
+
+    img_name = base64_to_image(inputjson['Image'], img_name) 
+
+    context = init_json_cucumber(inputjson['dataTime'])
+
+    
+    labels, bboxes, classes, scores = pred_img_cucumber(img_name)
+    print(labels, bboxes, classes, scores)
+
+    colorfile = 'imgUp/color.txt'
+    colors = read_label_color(colorfile)
+
+    context = draw_bboxes(img_name,
+                    bboxes,
+                    labels,
+                    context,
+                    colors=colors,
+                    scores = scores,
+                    class_names=classes,
+                    score_thr=0.5,
+                    out_file=out_name)
+
+    context["imageURL"] = "http://140.112.183.138:1007/media/iBp_temp/output.jpg"
+    write_base64 = True
+    if write_base64:
+        out64 = image_to_base64(out_name)
+        context["resultImage"] = str(out64, encoding='utf-8')
+
+    return context
+
 def demoLinebot(inputimage):
     # print(type(inputjson))
 
@@ -108,6 +142,35 @@ def demoLinebot(inputimage):
         out64 = image_to_base64(out_name)
         context["resultImage"] = out64
         
+
+    return context
+
+def demoLinebot_cucumber(inputimage):
+    # print(type(inputjson))
+
+    img_name = inputimage 
+    out_name = 'media/iBp_temp/output.jpg'
+    context = init_json_cucumber(1)
+    
+    labels, bboxes, classes, scores = pred_img_cucumber(img_name)
+
+    colorfile = 'imgUp/color.txt'
+    colors = read_label_color(colorfile)
+
+    context = draw_bboxes(img_name,
+                    bboxes,
+                    labels,
+                    context,
+                    colors=colors,
+                    scores = scores,
+                    class_names=classes,
+                    score_thr=0.5,
+                    out_file=out_name)
+
+    write_base64 = True
+    if write_base64:
+        out64 = image_to_base64(out_name)
+        context["resultImage"] = out64        
 
     return context
 
@@ -243,6 +306,27 @@ def init_json(dataTime):
 
     return context
 
+['health', 'virus', 'anthracnose', 'downy', 'corynespora', 'powdery', 'malnutrition', 'leafminer']
+def init_json_cucumber(dataTime):
+    context = {
+        "dataTime": dataTime, # 時間ID, 與原來接收之ID相同
+        "imageURL":"",
+        "resultImage": "",
+        "numofPredictions": 0,           # int, 總計辨識框數量，通常不會多於20
+        "pestTable": {   # 共12種病蟲害，每一項目皆為陣列，內含該種類之所有預測結果
+            'health':[],
+            'virus':[],                                 #'盲椿象_晚期',
+            'anthracnose': [],                                  #'赤葉枯病',
+            'downy': [],   #'真菌性病害_早期',
+            'corynespora': [],                                      #'茶餅病',
+            'powdery': [],                                        #'藻斑病',
+            'malnutrition': [],                                        #'潛葉蠅',
+            'leafminer': [],        #'薊馬',
+            },
+    }
+
+    return context
+
 def init_json_teabud(dataTime):
     context = {
         "dataTime": dataTime, # 時間ID, 與原來接收之ID相同
@@ -251,59 +335,59 @@ def init_json_teabud(dataTime):
 
     return context
 
-def write_det(Pred, box_id, pred_cls, score, bbox_int):
-    table = {
-        'mosquito_early': '盲椿象_早期',
-        'mosquito_late':'盲椿象_晚期',
-        'brownblight': '赤葉枯病',
-        'fungi_early': '真菌性病害_早期',
-        'blister': '茶餅病',
-        'algal': '藻斑病',
-        'miner': '潛葉蠅',
-        'thrips':'薊馬',
-        'roller': '茶捲葉蛾',
-        'mosquito_late': '盲椿象_晚期',
-        'mosquito_early': '盲椿象_早期',
-        'moth': '茶姬捲葉蛾',
-        'tortrix': '茶姬捲葉蛾',
-        'flushworm': '黑姬捲葉蛾',
-        'formosa': '小綠葉蟬',
-        'caloptilia' : '茶細蛾',
-        'tetrany': '蟎類',
-        'sunburn': '日燒症',
-        'other': '其他',
-    }
+# def write_det(Pred, box_id, pred_cls, score, bbox_int):
+#     table = {
+#         'mosquito_early': '盲椿象_早期',
+#         'mosquito_late':'盲椿象_晚期',
+#         'brownblight': '赤葉枯病',
+#         'fungi_early': '真菌性病害_早期',
+#         'blister': '茶餅病',
+#         'algal': '藻斑病',
+#         'miner': '潛葉蠅',
+#         'thrips':'薊馬',
+#         'roller': '茶捲葉蛾',
+#         'mosquito_late': '盲椿象_晚期',
+#         'mosquito_early': '盲椿象_早期',
+#         'moth': '茶姬捲葉蛾',
+#         'tortrix': '茶姬捲葉蛾',
+#         'flushworm': '黑姬捲葉蛾',
+#         'formosa': '小綠葉蟬',
+#         'caloptilia' : '茶細蛾',
+#         'tetrany': '蟎類',
+#         'sunburn': '日燒症',
+#         'other': '其他',
+#     }
 
-    htable = {
-        'mosquito_early': 'mosquito',
-        'mosquito_late':'mosquito',
-        'brownblight': 'brownblight',
-        'fungi_early': 'fungi_early',
-        'blister': 'blister',
-        'algal': 'algal',
-        'miner': 'miner',
-        'thrips':'thrips',
-        'roller': 'roller',
-        'moth': 'tortrix',
-        'tortrix': 'tortrix',
-        'flushworm': 'flushworm',
-    }
+#     htable = {
+#         'mosquito_early': 'mosquito',
+#         'mosquito_late':'mosquito',
+#         'brownblight': 'brownblight',
+#         'fungi_early': 'fungi_early',
+#         'blister': 'blister',
+#         'algal': 'algal',
+#         'miner': 'miner',
+#         'thrips':'thrips',
+#         'roller': 'roller',
+#         'moth': 'tortrix',
+#         'tortrix': 'tortrix',
+#         'flushworm': 'flushworm',
+#     }
 
-    pred_id = str(Pred).split('.')[0] + '_' + box_id
+#     pred_id = str(Pred).split('.')[0] + '_' + box_id
 
-    context = '{:s}: {:s} score: {:.3f}'.format(box_id, table[pred_cls], score)
-    print(context)
-    det = Detection(
-        pred_id = pred_id,
-        img_name = Pred,
-        box_id = box_id,
-        pred_cls = pred_cls,
-        html_file = htable[pred_cls],
-        score = score,
-        xmin = bbox_int[0],
-        ymin = bbox_int[1],
-        xmax = bbox_int[2],
-        ymax = bbox_int[3],
-        context = context,
-    )
-    det.save()
+#     context = '{:s}: {:s} score: {:.3f}'.format(box_id, table[pred_cls], score)
+#     print(context)
+#     det = Detection(
+#         pred_id = pred_id,
+#         img_name = Pred,
+#         box_id = box_id,
+#         pred_cls = pred_cls,
+#         html_file = htable[pred_cls],
+#         score = score,
+#         xmin = bbox_int[0],
+#         ymin = bbox_int[1],
+#         xmax = bbox_int[2],
+#         ymax = bbox_int[3],
+#         context = context,
+#     )
+#     det.save()

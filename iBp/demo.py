@@ -127,7 +127,7 @@ def demoLinebot(inputimage):
     colorfile = 'imgUp/color.txt'
     colors = read_label_color(colorfile)
 
-    context = draw_bboxes(img_name,
+    context, sequence_disease = draw_bboxes(img_name,
                     bboxes,
                     labels,
                     context,
@@ -143,7 +143,7 @@ def demoLinebot(inputimage):
         context["resultImage"] = out64
         
 
-    return context
+    return context, sequence_disease
 
 def demoLinebot_cucumber(inputimage):
     # print(type(inputjson))
@@ -238,6 +238,7 @@ def draw_bboxes(img_name,
 
     ABC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     i = 0
+    sequence_disease = []
 
     if len(scores) != 0:
         for bbox, label, score in zip(bboxes, labels, scores):
@@ -254,7 +255,9 @@ def draw_bboxes(img_name,
                     "xmax":int(bbox_int[2]), "ymax":int(bbox_int[3]) }
 
             context["pestTable"][pred_cls].append(det)
-            
+
+            sequence_disease.append(pred_cls)
+           
             left_top = (bbox_int[0], bbox_int[1])
             right_bottom = (bbox_int[2], bbox_int[3])
             
@@ -273,7 +276,7 @@ def draw_bboxes(img_name,
         
     imwrite(img, out_file)
     
-    return context
+    return context, sequence_disease
 
 
 

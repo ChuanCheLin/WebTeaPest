@@ -115,7 +115,9 @@ def callback(request):
                         fd.write(chunk)
                         
 
-                context = demoLinebot(file_path)
+                context, sequence_disease = demoLinebot(file_path)
+
+                print(sequence_disease)
 
                 #connect with db
                 img_name, img, imgid = save_image('linebotphoto/'+file_name+'.jpg')
@@ -149,31 +151,28 @@ def callback(request):
 
                 # prescriptions_url = "http://teas.agiot.tw/search2#FIND:" # need password
                 prescriptions_url = "https://ipm.agiot.tw/auto/茶/"
-                for num in nums:
-                    if len(nums[num])!=0 :
-                        # print(num)
-                        for i in range(len(nums[num])):                      
-                            #中文版 
-                            mesg = '%s: %s' %(tablenum.get(count), table.get(num)) 
-                            
-                            #Eng ver
-                            #mesg = '%s: %s' %(tablenum.get(count), table_eng.get(num))
+                for dis in sequence_disease:               
+                    #中文版 
+                    mesg = '%s: %s' %(tablenum.get(count), table.get(dis)) 
+                    
+                    #Eng ver
+                    #mesg = '%s: %s' %(tablenum.get(count), table_eng.get(num))
 
-                            #處方籤
-                            prescriptions_set.add(table_fullname.get(num))
+                    #處方籤
+                    prescriptions_set.add(table_fullname.get(dis))
 
-                            predid = imgid + '_' + tablenum.get(count)
-                            uri = tableurl.get(num)
-                            # line_bot_api.push_message(user_id, TextSendMessage(tablenum.get(count)))
-                            # line_bot_api.push_message(user_id, TextSendMessage(table.get(num)))
-                            #line_bot_api.push_message(user_id, TextSendMessage(mesg))
-                            detection.append(
-                                PostbackTemplateAction(label=mesg,text=mesg, data= 'A&' + predid + '&' + uri)
-                            )
-                            count=count+1
-                            if len(detection) == 4:
-                                detections.append(detection)
-                                detection = []
+                    predid = imgid + '_' + tablenum.get(count)
+                    uri = tableurl.get(dis)
+                    # line_bot_api.push_message(user_id, TextSendMessage(tablenum.get(count)))
+                    # line_bot_api.push_message(user_id, TextSendMessage(table.get(num)))
+                    #line_bot_api.push_message(user_id, TextSendMessage(mesg))
+                    detection.append(
+                        PostbackTemplateAction(label=mesg,text=mesg, data= 'A&' + predid + '&' + uri)
+                    )
+                    count=count+1
+                    if len(detection) == 4:
+                        detections.append(detection)
+                        detection = []
 
                 if len(detections)==0 and len(detection) == 0:
                     detection.append(URITemplateAction(label='未辨識出病蟲害',uri="https://forms.gle/26jUSkEBaNqRV1YR7"))

@@ -57,8 +57,9 @@ def callback(request):
                 if event.postback.data[0:1] == 'A':
                     #mesg = event.postback.data[2:].split('&')
                     predid = event.postback.data[2:12]
-                    #print(predid)
+                    # print(predid)
                     url = event.postback.data[13:]
+                    # print(url)
                     line_bot_api.push_message(user_id,TemplateSendMessage(
                             alt_text='傳送了辨識結果給您',
                             template=ButtonsTemplate(
@@ -88,16 +89,18 @@ def callback(request):
                 elif event.postback.data[0:1] == 'C':
                     pred_id = event.postback.data[2:12]
                     issue_num = event.postback.data[13:]
-                    #email = request.POST['contact']
-                    det = Detection.objects.get(pred_id=pred_id)
-                    fb = Feedback(
-                        pred = det, 
-                        date = timezone.now(),
-                        issue= issue_d[issue_num],
-                        #contact=email,
-                        #feedback = request.POST['feedback'],
-                    )
-                    fb.save()
+                    # print(event.postback.data)
+                    
+                    ### pause feedback service
+                    # det = Detection.objects.get(pred_id=pred_id)
+                    # fb = Feedback(
+                    #     pred = det, 
+                    #     date = timezone.now(),
+                    #     issue= issue_d[issue_num],
+                    #     #contact=email,
+                    #     #feedback = request.POST['feedback'],
+                    # )
+                    # fb.save()
 
                     line_bot_api.push_message(user_id, TextSendMessage(text='已收到 謝謝您的回報'))
 
@@ -142,11 +145,13 @@ def callback(request):
                 nums=context["pestTable"]
                 detections = []
                 detection = [] # each respond must be no larger than 4 instances
+                prescriptions_set = set()
 
-                prescriptions_url = "http://teas.agiot.tw/search2#FIND:"
+                # prescriptions_url = "http://teas.agiot.tw/search2#FIND:" # need password
+                prescriptions_url = "https://ipm.agiot.tw/auto/茶/"
                 for num in nums:
                     if len(nums[num])!=0 :
-                        print(num)
+                        # print(num)
                         for i in range(len(nums[num])):                      
                             #中文版 
                             mesg = '%s: %s' %(tablenum.get(count), table.get(num)) 
@@ -155,8 +160,7 @@ def callback(request):
                             #mesg = '%s: %s' %(tablenum.get(count), table_eng.get(num))
 
                             #處方籤
-                            prescriptions_url = prescriptions_url + table_fullname.get(num) + ","
-                            #print(prescriptions_url)
+                            prescriptions_set.add(table_fullname.get(num))
 
                             predid = imgid + '_' + tablenum.get(count)
                             uri = tableurl.get(num)
@@ -173,40 +177,39 @@ def callback(request):
 
                 if len(detections)==0 and len(detection) == 0:
                     detection.append(URITemplateAction(label='未辨識出病蟲害',uri="https://forms.gle/26jUSkEBaNqRV1YR7"))
-                
-                detection.append(URITemplateAction(label='智能用藥處方籤',uri= prescriptions_url ))
-                if len(detection) == 4:
-                    detections.append(detection)
-                    detection = []
 
-                detection.append(PostbackTemplateAction(label='誤判回報',text='誤判回報', data= 'A'))
-                if len(detection) == 4:
-                    detections.append(detection)
-                    detection = []
+                # detection.append(URITemplateAction(label='智能用藥處方箋',uri= prescriptions_url))
+                # detection.append(URITemplateAction(label='智能用藥處方箋',uri="https://ipm.agiot.tw/auto/茶/害蟲-半翅目-葉蟬類,害蟲-薊馬類-葉部薊馬類"))
 
                 # 回報問題 測試用
-                detection.append(URITemplateAction(label='使用回饋表單',uri="https://forms.gle/26jUSkEBaNqRV1YR7"))
                 if len(detection) == 4:
                     detections.append(detection)
                     detection = []
 
-
+                detection.append(URITemplateAction(label='使用回饋表單',uri="https://forms.gle/26jUSkEBaNqRV1YR7"))
                 
                 detections.append(detection)
 
+                # print(detections)
+
                 for i in range(len(detections)):
-                    line_bot_api.push_message(user_id,TemplateSendMessage(
-                        alt_text='傳送了辨識結果給您',
-                        template=ButtonsTemplate(
-                            title='Image ID: '+ imgid,  #病蟲害檢測結果
-                            text='想了解更多資訊請點擊連結',
-                            #Eng version
-                            #title='Identification Results',
-                            #text='press the link for more information',
-                            actions = detections[i]
+                    if detection != []:
+                        line_bot_api.push_message(user_id,TemplateSendMessage(
+                            alt_text='傳送了辨識結果給您',
+                            template=ButtonsTemplate(
+                                title='Image ID: '+ imgid,  #病蟲害檢測結果
+                                text='想了解更多資訊請點擊連結',
+                                #Eng version
+                                #title='Identification Results',
+                                #text='press the link for more information',
+                                actions = detections[i]
+                                )
                             )
                         )
-                    )
+                for i in range(len(prescriptions_set)):
+                    prescriptions_url = prescriptions_url + prescriptions_set.pop() + ","
+                    
+                line_bot_api.push_message(user_id, TextSendMessage(text=f'智能用藥處方箋: \n{prescriptions_url}'))
         return HttpResponse()    
     else:
         return HttpResponseBadRequest()
@@ -248,23 +251,43 @@ table_eng = {
         'flushworm': '黑姬捲葉蛾',
     }
 
+# table_fullname = {
+#     'mosquito_early': '害蟲/半翅目/椿象類/黑盲椿象',
+#     'mosquito_late':'害蟲/半翅目/椿象類/黑盲椿象',
+#     'brownblight': '真菌及類真菌病害/赤葉枯病',
+#     'fungi_early': '真菌及類真菌病害',
+#     'blister': '真菌及類真菌病害/茶餅病',
+#     'algal': '藻斑病',
+#     'miner': '害蟲/雙翅目/潛蠅類/亞洲潛葉蠅',
+#     'thrips':'害蟲/薊馬類/葉部薊馬類/小黃薊馬',
+#     'roller': '害蟲/鱗翅目害蟲/捲葉蛾類/茶捲葉蛾',
+#     'moth': '害蟲/鱗翅目害蟲/捲葉蛾類/姬捲葉蛾',
+#     'tortrix': '害蟲/鱗翅目害蟲/捲葉蛾類/姬捲葉蛾',
+#     'flushworm': '害蟲/鱗翅目害蟲/捲葉蛾類/黑姬捲葉蛾',
+#     'tetrany': '害蟲/蟎蜱類/葉蟎類',
+#     'caloptilia':'害蟲/鱗翅目害蟲/細蛾類',
+#     'sunburn':'日燒症',
+#     'formosa':'害蟲/半翅目/葉蟬類/小綠葉蟬',
+#     'other': '其他'
+# }
+
 table_fullname = {
-    'mosquito_early': '害蟲/半翅目/椿象類/黑盲椿象',
-    'mosquito_late':'害蟲/半翅目/椿象類/黑盲椿象',
-    'brownblight': '真菌及類真菌病害/赤葉枯病',
+    'mosquito_early': '害蟲-半翅目-椿象類',
+    'mosquito_late':'害蟲-半翅目-椿象類',
+    'brownblight': '真菌及類真菌病害-赤葉枯病',
     'fungi_early': '真菌及類真菌病害',
-    'blister': '真菌及類真菌病害/茶餅病',
+    'blister': '真菌及類真菌病害-茶餅病',
     'algal': '藻斑病',
     'miner': '害蟲/雙翅目/潛蠅類/亞洲潛葉蠅',
-    'thrips':'害蟲/薊馬類/葉部薊馬類/小黃薊馬',
-    'roller': '害蟲/鱗翅目害蟲/捲葉蛾類/茶捲葉蛾',
-    'moth': '害蟲/鱗翅目害蟲/捲葉蛾類/姬捲葉蛾',
-    'tortrix': '害蟲/鱗翅目害蟲/捲葉蛾類/姬捲葉蛾',
-    'flushworm': '害蟲/鱗翅目害蟲/捲葉蛾類/黑姬捲葉蛾',
-    'tetrany': '害蟲/蟎蜱類/葉蟎類',
-    'caloptilia':'害蟲/鱗翅目害蟲/細蛾類',
+    'thrips':'害蟲-薊馬類-葉部薊馬類',
+    'roller': '害蟲-鱗翅目害蟲-捲葉蛾類',
+    'moth': '害蟲-鱗翅目害蟲-捲葉蛾類',
+    'tortrix': '害蟲-鱗翅目害蟲-捲葉蛾類',
+    'flushworm': '害蟲-鱗翅目害蟲-捲葉蛾類',
+    'tetrany': '害蟲-蟎蜱類-葉蟎類',
+    'caloptilia':'害蟲-鱗翅目害蟲-捲葉蛾類',
     'sunburn':'日燒症',
-    'formosa':'害蟲/半翅目/葉蟬類/小綠葉蟬',
+    'formosa':'害蟲-半翅目-葉蟬類',
     'other': '其他'
 }
 

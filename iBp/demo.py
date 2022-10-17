@@ -278,7 +278,28 @@ def draw_bboxes(img_name,
     
     return context, sequence_disease
 
+def remove_outliers(data):
 
+    q1 = np.quantile(data, 0.25)
+    q3 = np.quantile(data, 0.75)
+    iqr = q3 - q1
+
+    upper_bound = q3 + (1.5 * iqr)
+    lower_bound = q1 - (1.5 * iqr)
+
+    for i in data:
+        if i < lower_bound or i > upper_bound:
+            data.remove(i)
+
+    average_data = sum(data) / len(data)
+        
+    return average_data
+
+def gompertz(t, a, b, c, bias):
+    return a * np.exp(-np.exp(b - c * t)) + bias
+
+def recip_exp(t, a, b):
+    return a * np.exp(- b * t)
 
 def init_json(dataTime):
     context = {

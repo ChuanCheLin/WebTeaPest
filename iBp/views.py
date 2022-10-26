@@ -9,8 +9,6 @@ from django.views.decorators.csrf import csrf_exempt
 import numpy as np
 
 # Create your views here.
-
-
 @method_decorator(csrf_exempt)
 def ibpinterface(request):
     print("recieve from iBP!")
@@ -88,7 +86,42 @@ def tea_bud_remove_outlier_API(request):
         "averageNum": 0,           # int, 去除離群值並平均後的單日茶芽數量
         }
 
-        print(data)
+        try:
+            data = json.loads(data)
+        except:
+            pass
+
+        try:
+            if 'dataTime' in data:
+                context["dataTime"] = data["dataTime"]
+                context["averageNum"] = remove_outliers(data = data['sequence_data'])
+
+                return JsonResponse(context)
+            else:
+                context = {"fail":000}
+            
+        except:
+            context = {"fail":000}
+
+        return JsonResponse(context)
+
+@method_decorator(csrf_exempt)
+def tea_bud_prediction_API(request):
+    print("tea bud prediction!")
+    #print(request)
+    if request.method == 'POST':
+
+        body = request.body
+        body = body.decode('utf8')
+        data = json.loads(body)
+
+        context = {
+        "dataTime": "", # 時間ID, 與原來接收之ID相同
+        "harvest_point": 0,
+        "predict_growth_curve": [] # 預測出的每天的茶芽數
+
+        }
+
         try:
             data = json.loads(data)
         except:
@@ -97,7 +130,7 @@ def tea_bud_remove_outlier_API(request):
         # try:
         if 'dataTime' in data:
             context["dataTime"] = data["dataTime"]
-            context["averageNum"] = remove_outliers(data = data['sequence_data'])
+
 
             return JsonResponse(context)
         #     else:
@@ -106,7 +139,7 @@ def tea_bud_remove_outlier_API(request):
         # except:
         #     context = {"fail":000}
 
-        return JsonResponse(context)
+        # return JsonResponse(context)
 
 @method_decorator(csrf_exempt)
 def cucumber_API(request):
@@ -123,16 +156,16 @@ def cucumber_API(request):
         except:
             pass
 
-        # try:
-        if 'Image' in data:
-            context = demoIBP_cucumber(data)
-            # print(context)
-            return JsonResponse(context)
-        #     else:
-        #         context = {"fail":000}
+        try:
+            if 'Image' in data:
+                context = demoIBP_cucumber(data)
+                # print(context)
+                return JsonResponse(context)
+            else:
+                context = {"fail":000}
             
-        # except:
-        #     context = {"fail":000}
+        except:
+            context = {"fail":000}
 
-        # return JsonResponse(context)
+        return JsonResponse(context)
 

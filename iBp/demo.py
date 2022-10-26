@@ -63,7 +63,7 @@ def demoIBP(inputjson):
     colorfile = 'imgUp/color.txt'
     colors = read_label_color(colorfile)
 
-    context = draw_bboxes(img_name,
+    context, _ = draw_bboxes(img_name,
                     bboxes,
                     labels,
                     context,
@@ -73,7 +73,7 @@ def demoIBP(inputjson):
                     score_thr=0.5,
                     out_file=out_name)
 
-    context["imageURL"] = "http://140.112.183.138:1007/media/iBp_temp/output.jpg"
+    context["imageURL"] = "http://140.112.183.138:1008/media/iBp_temp/output.jpg"
     write_base64 = True
     if write_base64:
         out64 = image_to_base64(out_name)
@@ -90,14 +90,14 @@ def demoIBP_cucumber(inputjson):
 
     context = init_json_cucumber(inputjson['dataTime'])
 
-    
+
     labels, bboxes, classes, scores = pred_img_cucumber(img_name)
     print(labels, bboxes, classes, scores)
 
     colorfile = 'imgUp/color.txt'
     colors = read_label_color(colorfile)
 
-    context = draw_bboxes(img_name,
+    context, _ = draw_bboxes(img_name,
                     bboxes,
                     labels,
                     context,
@@ -106,6 +106,7 @@ def demoIBP_cucumber(inputjson):
                     class_names=classes,
                     score_thr=0.5,
                     out_file=out_name)
+
 
     context["imageURL"] = "http://140.112.183.138:1007/media/iBp_temp/output.jpg"
     write_base64 = True
@@ -216,7 +217,7 @@ def draw_bboxes(img_name,
         assert labels.ndim == 1
         assert bboxes.shape[0] == labels.shape[0]
         assert bboxes.shape[1] == 4 or bboxes.shape[1] == 5
-    
+
     img = imread(img_name)
     img = img.copy()
     
@@ -271,7 +272,7 @@ def draw_bboxes(img_name,
                         cv2.FONT_HERSHEY_SIMPLEX, int(1.3*pr), (255,255,255), int(2*pr), 8)
             
             i += 1
-        
+
     print('done   '+ str(out_file))
         
     imwrite(img, out_file)
@@ -330,7 +331,6 @@ def init_json(dataTime):
 
     return context
 
-['health', 'virus', 'anthracnose', 'downy', 'corynespora', 'powdery', 'malnutrition', 'leafminer']
 def init_json_cucumber(dataTime):
     context = {
         "dataTime": dataTime, # 時間ID, 與原來接收之ID相同

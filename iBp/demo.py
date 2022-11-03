@@ -158,7 +158,7 @@ def demoLinebot_cucumber(inputimage):
     colorfile = 'imgUp/color.txt'
     colors = read_label_color(colorfile)
 
-    context = draw_bboxes(img_name,
+    context, sequence_disease = draw_bboxes(img_name,
                     bboxes,
                     labels,
                     context,
@@ -173,7 +173,7 @@ def demoLinebot_cucumber(inputimage):
         out64 = image_to_base64(out_name)
         context["resultImage"] = out64        
 
-    return context
+    return context, sequence_disease
 
 def demoTeabud(inputjson):
     # print(type(inputjson))
@@ -295,6 +295,42 @@ def remove_outliers(data):
     average_data = sum(data) / len(data)
         
     return average_data
+
+def tea_bud_predictiion(data):
+    from sympy import diff, Symbol, exp
+    pred_curve = []
+    AGRmax = 0
+    AGRmax_idx = 0
+    key = True
+
+    gcoe = [22.5296142, 34.80393294, 0.93934673] #gompertz parameters
+    
+    t = Symbol('t')
+    gom_diff = diff(gcoe[0] * exp(-exp(gcoe[1] - gcoe[2] * t)), t)
+    
+    for d in range(len(data)):
+        if 0 < round(float(gom_diff.subs(t, d)), 1) and key:
+            growth_time_idx = int(d)
+            growth_time = gom_diff.subs(t, d)
+            key = False
+
+        if AGRmax < gom_diff.subs(t, d):
+            AGRmax_idx = int(d)
+            AGRmax = gom_diff.subs(t, d)
+
+    harvest_time = 0
+    for d in range(len(data)):
+        if d >= AGRmax_idx:
+            # print(round(float(gom_diff.subs(t, d)), 1))
+            if round(float(gom_diff.subs(t, d)), 1) <= 0:
+                harvest_time = int(d)
+                break
+
+    for t in range(len(data)):
+        pred_curve.append(gompertz(t, gcoe[0], gcoe[1], gcoe[2], 15))
+
+    return pred_curve, harvest_time
+
 
 def gompertz(t, a, b, c, bias):
     return a * np.exp(-np.exp(b - c * t)) + bias

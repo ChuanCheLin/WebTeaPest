@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 import requests
-from .demo import demoIBP, demoTeabud, demoIBP_cucumber, remove_outliers
+from .demo import demoIBP, demoTeabud, demoIBP_cucumber, remove_outliers, tea_bud_predictiion
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
@@ -115,11 +115,14 @@ def tea_bud_prediction_API(request):
         body = body.decode('utf8')
         data = json.loads(body)
 
+        sequence_data = data['sequence_data']
+
+        pred_curve, harvest_point = tea_bud_predictiion(sequence_data)
+
         context = {
         "dataTime": "", # 時間ID, 與原來接收之ID相同
-        "harvest_point": 0,
-        "predict_growth_curve": [] # 預測出的每天的茶芽數
-
+        "harvest_point": harvest_point,
+        "predict_growth_curve": pred_curve # 預測出的每天的茶芽數
         }
 
         try:

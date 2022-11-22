@@ -329,6 +329,9 @@ def tea_bud_predictiion(data):
     for t in range(len(data)):
         pred_curve.append(gompertz(t, gcoe[0], gcoe[1], gcoe[2], 15))
 
+    if harvest_time == 0:
+        harvest_time = len(data)
+
     return pred_curve, harvest_time
 
 

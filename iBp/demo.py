@@ -296,14 +296,41 @@ def remove_outliers(data):
         
     return average_data
 
+def gompertz(t, a, b, c):
+    return a * np.exp(-np.exp(b - c * t)) + bias
+
+def recip_exp(t, a, b):
+    return a * np.exp(- b * t)
+
 def tea_bud_predictiion(data):
     from sympy import diff, Symbol, exp
+    from scipy.optimize import curve_fit
+    from sklearn.metrics import r2_score, mean_squared_error
+
+    n = len(data)
     pred_curve = []
     AGRmax = 0
     AGRmax_idx = 0
     key = True
+    choose_day = 15
+    ypme = np.empty(n)
+    global bias
 
-    gcoe = [22.5296142, 34.80393294, 0.93934673] #gompertz parameters
+    day = np.empty(n)
+    for i in range(n):
+        day[i] = i+1
+
+    inve, _ = curve_fit(recip_exp, day[:choose_day], data[:choose_day]) 
+    for i in range(n):
+        ypme[i] = recip_exp(i+1, inve[0], inve[1])
+    
+    bias = ypme[14] #sepatrate reciprocal and gompertz
+
+    gcoe, _ = curve_fit(gompertz, day, data)
+
+    print(gcoe)
+
+    # gcoe = [22.5296142, 34.80393294, 0.93934673] #gompertz parameters
     
     t = Symbol('t')
     gom_diff = diff(gcoe[0] * exp(-exp(gcoe[1] - gcoe[2] * t)), t)
@@ -325,21 +352,19 @@ def tea_bud_predictiion(data):
             if round(float(gom_diff.subs(t, d)), 1) <= 0:
                 harvest_time = int(d)
                 break
+    
+    
 
     for t in range(len(data)):
-        pred_curve.append(gompertz(t, gcoe[0], gcoe[1], gcoe[2], 15))
+        if t >= 0 and t <=14:
+            pred_curve.append(ypme[t])
+        else:
+            pred_curve.append(gompertz(t, gcoe[0], gcoe[1], gcoe[2]))
 
     if harvest_time == 0:
         harvest_time = len(data)
 
     return pred_curve, harvest_time
-
-
-def gompertz(t, a, b, c, bias):
-    return a * np.exp(-np.exp(b - c * t)) + bias
-
-def recip_exp(t, a, b):
-    return a * np.exp(- b * t)
 
 def init_json(dataTime):
     context = {

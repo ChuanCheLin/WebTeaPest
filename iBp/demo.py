@@ -14,6 +14,7 @@ import numpy as np
 from mmcv.image import imread, imwrite
 from datetime import datetime
 from imgUp.demo import pred_img, read_label_color, pred_img_tea_bud, pred_img_cucumber
+from fsdet.data.detection_utils import read_image
 
 def demo_test():
     img_name = '0721192833.jpg'
@@ -218,7 +219,7 @@ def draw_bboxes(img_name,
         assert bboxes.shape[0] == labels.shape[0]
         assert bboxes.shape[1] == 4 or bboxes.shape[1] == 5
 
-    img = imread(img_name)
+    img = read_image(img_name)
     img = img.copy()
     
     ori_size = img.shape

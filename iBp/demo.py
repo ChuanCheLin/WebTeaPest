@@ -219,7 +219,7 @@ def draw_bboxes(img_name,
         assert bboxes.shape[0] == labels.shape[0]
         assert bboxes.shape[1] == 4 or bboxes.shape[1] == 5
 
-    img = read_image(img_name)
+    img = read_image(img_name, format="BGR")
     img = img.copy()
     
     ori_size = img.shape

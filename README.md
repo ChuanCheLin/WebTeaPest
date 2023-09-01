@@ -1,5 +1,5 @@
 # WebTeaPest
-An system for tea disease identification  
+Tea diseases identification and Prescription System
 Link to our website: http://140.112.183.138:1007/
 
 - teadiagnose 
